@@ -9,4 +9,7 @@ module Prnstn
   REMOTE_HOST = ''
   REMOTE_PORT = ''
   REMOTE_TOKEN = ENV['REMOTE_TOKEN']
+
+  # configuration of the used social media plattform
+  SMC_PLATTFORM = 'twitter'
 end

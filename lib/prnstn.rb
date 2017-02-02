@@ -45,6 +45,7 @@ module Prnstn
       # 3 SMC setup and status
       # check_smc_setup
       # read msg from SMC
+      Prnstn::SMC.new
 
       # 4 queue calculations (storage)
       # read_saved_queue or init new(empty) one
