@@ -2,6 +2,9 @@ require 'fileutils'
 
 module Prnstn
   class Logger
+
+    attr_accessor :log
+
     # concept from mongrel gem > logger
     # => https://github.com/mongrel/mongrel/blob/master/lib/mongrel/logger.rb
 
@@ -26,6 +29,8 @@ module Prnstn
         @log.respond_to?(:write_nonblock)
         @aio = true
       end
+
+      $PLogger = self
     end
 
     def log(msg)
@@ -36,5 +41,13 @@ module Prnstn
         @log.write("#{Time.now} || #{msg}\n")
       end
     end
+  end
+
+  # Convenience wrapper for logging, allows us to use Prnstn.log
+  # (fame goes to Mongrel developers)
+  def self.log(*args)
+    # If no logger has been defined yet at this point, log to STDOUT.
+    $PLogger ||= Prnstn::Log.new(STDOUT, :debug)
+    $PLogger.log(*args)
   end
 end

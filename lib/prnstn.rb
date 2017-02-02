@@ -1,12 +1,17 @@
 require 'prnstn/version'
 require 'prnstn/config'
-require 'prnstn/remote'
 require 'prnstn/logger'
+require 'prnstn/smc'
+require 'prnstn/fakeapi'
 
+require 'twitter'
 require 'date'
 
 module Prnstn
   class Main
+
+    attr_accessor :logger
+
     def initialize(*)
       @logger = Prnstn::Logger.new('log/prnstn.log')
       @logger.log('----------------')
