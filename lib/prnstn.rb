@@ -1,16 +1,21 @@
+require 'twitter'
+require 'date'
+
+
 require 'prnstn/version'
 require 'prnstn/config'
 require 'prnstn/logger'
+require 'prnstn/database/schema'
 require 'prnstn/smc'
 require 'prnstn/fakeapi'
 
-require 'twitter'
-require 'date'
+
 
 module Prnstn
   class Main
 
     attr_accessor :logger
+    attr_accessor :log
 
     def initialize(*)
       @logger = Prnstn::Logger.new('log/prnstn.log')
@@ -21,6 +26,20 @@ module Prnstn
       if ENV['REMOTE_TOKEN']
         @logger.log('Prnstn is starting...')
         @logger.log("Token provided: #{Prnstn::REMOTE_TOKEN}")
+        if Message.all.count == 0
+          initial_message = [
+            sid: 1,
+            title: "Hello World",
+            body: "I'm here",
+            imageurl: "",
+            date: Time.now
+          ]
+          Message.create(initial_message)
+          @logger.log("Datebase first run: Created initial message")
+        end
+        @messages = Message.all
+        @logger.log("Datebase lookup: #{@messages.count} messages stored")
+
       else
         @logger.log('No token provided. Quitting...')
         exit

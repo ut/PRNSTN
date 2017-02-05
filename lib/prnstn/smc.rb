@@ -14,6 +14,7 @@ module Prnstn
 
     def initialize
       fetch_mentions if auth
+      convert_mentions if @last_mentions
     end
 
     def auth
@@ -43,8 +44,9 @@ module Prnstn
     end
 
     def convert_mentions
+      Prnstn.log('TODO: Storing mentions into database...')
       # TODO: convert to the common message format
-      # we need: title, body/message, image, date, ID
+      # we need: SID, title, body, imageurl, date
     end
 
   end
