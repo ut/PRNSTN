@@ -10,11 +10,20 @@ $ sudo apt-get install libcups2 libcups2-dev
 
 ## Installation
 
-$ bundle install
+  $ bundle install
+
+Create a Twitter applicatoion via https://apps.twitter.com/ and export the following credentials into your local environment:
+
+  $ export CONSUMER_KEY="..."
+  $ export CONSUMER_SECRET="..."
+  $ export ACCESS_TOKEN="..."
+  $ export ACCESS_TOKEN_SECRET="..."
+
+
 
 ## Usage
 
-$ REMOTE_TOKEN=xxxx bin/prnstn
+  $ REMOTE_TOKEN=xxxx bin/prnstn
 
 ## Development
 

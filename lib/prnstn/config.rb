@@ -12,4 +12,8 @@ module Prnstn
 
   # configuration of the used social media plattform
   SMC_PLATTFORM = 'twitter'
+  CONSUMER_KEY = ENV['CONSUMER_KEY']
+  CONSUMER_SECRET = ENV['CONSUMER_SECRET']
+  ACCESS_TOKEN = ENV['ACCESS_TOKEN']
+  ACCESS_TOKEN_SECRET = ENV['ACCESS_TOKEN_SECRET']
 end

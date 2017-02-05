@@ -17,25 +17,39 @@ module Prnstn
     end
 
     def auth
-      # @client = Twitter::REST::Client.new do |config|
-      #   config.consumer_key        = ''
-      #   config.consumer_secret     = ''
-      #   config.access_token        = ''
-      #   config.access_token_secret = ''
-      # end
-      Prnstn.log('Successfully autherized by Twitter API...')
+      @client = Twitter::REST::Client.new do |config|
+        config.consumer_key        =  ENV['CONSUMER_KEY']
+        config.consumer_secret     = ENV['CONSUMER_SECRET']
+        config.access_token        = ENV['ACCESS_TOKEN']
+        config.access_token_secret = ENV['ACCESS_TOKEN_SECRET']
+      end
+      if @client
+        Prnstn.log('Successfully autherized by Twitter API...')
+      else
+        Prnstn.log('Ups, there might be problem with your Twitter API credentials...')
+
+      end
       true
     end
 
     def fetch_mentions
-      # @last_mentions = @client.mentions_timeline[0]
-      Prnstn.log('Got last mentions from Twitter...')
-      @last_mentions = [{}]
+      Prnstn.log('Got last 5 mentions from Twitter...')
+      @last_mentions = @client.mentions_timeline[0..4]
+
+      # @last_mentions = [{}]
+      @last_mentions.each_with_index do |m,i|
+        Prnstn.log("--message #{i} #{m.id} #{m.created_at}")
+      end
+    end
+
+    def convert_mentions
+      # TODO: convert to the common message format
+      # we need: title, body/message, image, date, ID
     end
 
   end
 
-  class SMS_Statusnet
+  class SMC_Statusnet
 
   end
 
