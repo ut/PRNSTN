@@ -6,6 +6,8 @@ This program is under development, see TODO for a list of open tasks and feature
 
 ## Prerequisites
 
+Ruby 2.x, Rubygems
+
 ```bash
 $ sudo apt-get install libcups2 libcups2-dev
 ```
@@ -39,7 +41,9 @@ Bug reports and pull requests are welcome on GitHub at https://github.com/ut/prn
 
 ## Credits & License
 
-Code by Ulf Treger <ulf.treger@googlemail.com>
+A project by Ulf Treger <ulf.treger@googlemail.com>
+
+Running via CLI and as a daemonized script based on a concept by Jake Gordon at [Daemonizing Ruby Processes](http://codeincomplete.com/posts/ruby-daemons/)
 
 This project is licensed under a [GNU General Public Licence v3](LICENSE.txt).
 

@@ -3,7 +3,7 @@ module Prnstn
 
     def initialize
       if SMC_PLATTFORM == 'twitter'
-        Prnstn::SMC_Twitter.new
+        Prnstn::SMC_Twitter.new.run!
       end
 
     end
@@ -12,7 +12,11 @@ module Prnstn
 
   class SMC_Twitter
 
-    def initialize
+    def initialize(*)
+
+    end
+
+    def run!
       fetch_mentions if auth
       convert_mentions if @last_mentions
     end

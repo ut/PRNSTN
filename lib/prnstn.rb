@@ -1,6 +1,6 @@
 require 'twitter'
 require 'date'
-
+require 'cupsffi'
 
 require 'prnstn/version'
 require 'prnstn/config'
@@ -16,8 +16,20 @@ module Prnstn
 
     attr_accessor :logger
     attr_accessor :log
+    attr_reader :options, :quit
 
-    def initialize(*)
+    def initialize(options)
+
+      @options = options
+
+      # default
+      if !options[:onpush_print]
+        options[:instant_print] = true
+      end
+
+      # TODO:
+      # implement $DEBUG and logfile warnings on/off
+
       @logger = Prnstn::Logger.new('log/prnstn.log')
       @logger.log('----------------')
       @logger.log("#{Prnstn::NAME} #{Prnstn::VERSION} on a #{ENV['_system_name']} #{ENV['_system_version']} machine")
@@ -46,7 +58,7 @@ module Prnstn
       end
     end
 
-    def call
+    def run!
       @logger.log('Start application...')
       # TODO
 
@@ -63,13 +75,37 @@ module Prnstn
 
       # 3 SMC setup and status
       # check_smc_setup
+
       # read msg from SMC
       Prnstn::SMC.new
 
-      # 4 queue calculations (storage)
-      # read_saved_queue or init new(empty) one
-      # remove old msg (msg.age  > 1.week)
-      # add newest msg from SMC
+      if options[:onpush_print]
+        # 4 queue calculations (storage)
+        # read_saved_queue or init new(empty) one
+        # remove old msg (msg.age  > 1.week)
+        # add newest msg from SMC
+      else
+        @logger.log('INSTANT PRINT... omitting queue calculations')
+      end
+
+      # 5 print
+      if options[:instant_print]
+        @logger.log('INSTANT PRINT mode...')
+
+        # print first messsage
+        @logger.log('INSTANT PRINT... printing a "hello world" message')
+        job = @printer.print_data('hello world', 'text/plain')
+
+        while !quit
+          @logger.log('INSTANT PRINT listening')
+          # TODO
+          #  check via Prnstn::SMC
+          #  print all messages sind last check!
+          sleep(5)
+        end
+        #
+
+      end
 
     end
 
@@ -123,6 +159,11 @@ module Prnstn
       else
         @logger.log("No job has been done")
       end
+
+    end
+
+    def print_message
+
 
     end
 
