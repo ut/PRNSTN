@@ -42,9 +42,10 @@ module Prnstn
           initial_message = [
             sid: 1,
             title: "Hello World",
-            body: "I'm here",
+            body: "I'm here!\n A message from #{Prnstn::NAME}\n",
             imageurl: "",
-            date: Time.now
+            date: Time.now,
+            queued: true
           ]
           Message.create(initial_message)
           @logger.log("Datebase first run: Created initial message")
@@ -94,7 +95,7 @@ module Prnstn
 
         # print first messsage
         @logger.log('INSTANT PRINT... printing a "hello world" message')
-        job = @printer.print_data('hello world', 'text/plain')
+        # job = @printer.print_data('hello world', 'text/plain')
 
         while !quit
           @logger.log('INSTANT PRINT listening')

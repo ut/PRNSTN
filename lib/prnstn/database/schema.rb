@@ -11,6 +11,9 @@ class Message < ActiveRecord::Base
    validates :sid, presence: true, uniqueness: true
    validates :title, presence: true
 
+
+
+
 end
 
 ActiveRecord::Schema.define do
@@ -19,11 +22,12 @@ ActiveRecord::Schema.define do
   else
     puts 'Database available, creating table "Messages"'
     create_table :messages do |table|
-      table.column :sid,     :string
-      table.column :title,     :string
-      table.column :body, :text
+      table.column :sid,      :string
+      table.column :title,    :string
+      table.column :body,     :text
       table.column :imageurl, :string
-      table.column :date, :timestamp
+      table.column :date,     :timestamp
+      table.column :queued,   :boolean
     end
   end
 end

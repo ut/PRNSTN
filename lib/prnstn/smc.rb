@@ -40,6 +40,7 @@ module Prnstn
     def fetch_mentions
       Prnstn.log('Got last 5 mentions from Twitter...')
       @last_mentions = @client.mentions_timeline[0..4]
+      # TODO: handle timeout
 
       # @last_mentions = [{}]
       @last_mentions.each_with_index do |m,i|
@@ -49,8 +50,31 @@ module Prnstn
 
     def convert_mentions
       Prnstn.log('TODO: Storing mentions into database...')
-      # TODO: convert to the common message format
-      # we need: SID, title, body, imageurl, date
+      # TODO: convert to common message format
+      @last_mentions.each do |mention|
+        cmp = Message.where(sid: mention.id).first
+        if cmp
+          Prnstn.log("Search for message ID. Found  #{cmp.sid}")
+        else
+          Prnstn.log("Search for message ID. Its a new message #{mention.id}")
+
+          body = "#{mention.text}\n A message from #{mention.user.screen_name}\n"
+          # TODO: if image, get image
+
+          message = [
+            sid: mention.id,
+            title: "m",
+            body: body,
+            imageurl: "",
+            date: Time.now,
+            queued: false
+          ]
+          Message.create!(message)
+          Prnstn.log("Search for message ID. New message saved!")
+        end
+
+      end
+
     end
 
   end
