@@ -109,7 +109,26 @@ module Prnstn
           @logger.log('INSTANT PRINT listening')
           # TODO
           #  check via Prnstn::SMC
-          #  print all messages sind last check!
+          #  print all messages since last run/llop!
+          messages = Message.where(printed: false)
+          if messages && messages.count > 0
+            @logger.log("INSTANT PRINT... printing #{messages.count} messages")
+
+            messages.each do |m|
+
+              # TODO move printing to an extra class, more generic: screen/log output only, pdf print, real print
+
+              puts "-----------------\n"
+              puts "##{m.id} // #{m.sid} // #{m.date}\n"
+              puts "#{m.body}\n"
+              puts "-----------------\n"
+              m.printed = true
+              m.save!
+            end
+
+          else
+            @logger.log("INSTANT PRINT... no new messages, nothing to print")
+          end
           sleep(5)
         end
         #

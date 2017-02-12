@@ -67,7 +67,8 @@ module Prnstn
             body: body,
             imageurl: "",
             date: Time.now,
-            queued: false
+            queued: false,
+            printed: false
           ]
           Message.create!(message)
           Prnstn.log("Search for message ID. New message saved!")

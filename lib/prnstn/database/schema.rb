@@ -29,6 +29,7 @@ ActiveRecord::Schema.define do
       table.column :imageurl, :string
       table.column :date,     :timestamp
       table.column :queued,   :boolean
+      table.column :printed,   :boolean
     end
   end
 end
