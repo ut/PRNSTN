@@ -1,3 +1,5 @@
+@env = 'production' unless @env
+
 require 'twitter'
 require 'date'
 require 'cupsffi'
@@ -8,7 +10,6 @@ require 'prnstn/logger'
 require 'prnstn/database/schema'
 require 'prnstn/smc'
 require 'prnstn/fakeapi'
-
 
 
 module Prnstn
@@ -55,7 +56,8 @@ module Prnstn
 
       else
         @logger.log('No token provided. Quitting...')
-        exit
+        'No token provided. Quitting...!'
+        # exit
       end
     end
 

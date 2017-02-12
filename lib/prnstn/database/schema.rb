@@ -1,18 +1,19 @@
 require 'sqlite3'
 require 'active_record'
 
+
+puts "Env: #{@env}"
+
+
 ActiveRecord::Base.establish_connection(
   :adapter => 'sqlite3',
-  :database => 'prnstn.db'
+  :database => "prnstn-#{@env}.db"
 )
 
 class Message < ActiveRecord::Base
 
    validates :sid, presence: true, uniqueness: true
    validates :title, presence: true
-
-
-
 
 end
 
