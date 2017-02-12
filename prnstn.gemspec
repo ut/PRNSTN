@@ -42,4 +42,5 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'webmock', '~> 2.3'
   spec.add_development_dependency 'twitter'
   spec.add_development_dependency 'activerecord'
+  spec.add_development_dependency 'sqlite3'
 end

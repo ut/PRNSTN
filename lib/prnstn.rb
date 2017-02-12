@@ -95,7 +95,13 @@ module Prnstn
 
         # print first messsage
         @logger.log('INSTANT PRINT... printing a "hello world" message')
-        # job = @printer.print_data('hello world', 'text/plain')
+
+        job = ''
+        if @options[:dry_run]
+          @logger.log('INSTANT PRINT... printing disabled, skipping (dry run mode)')
+        else
+          job = @printer.print_data('hello world', 'text/plain')
+        end
 
         while !quit
           @logger.log('INSTANT PRINT listening')
@@ -153,12 +159,15 @@ module Prnstn
 
     def prn_test_print
       @logger.log('Print test...')
-      job = ''
-      # job = @printer.print_data('hello world', 'text/plain')
-      if !job.empty?
-        @logger.log("Job status #{job.status}")
+      if @options[:dry_run]
+        @logger.log('TEST PRINT... printing disabled, skipping (dry run mode)')
       else
-        @logger.log("No job has been done")
+        job = @printer.print_data('hello world', 'text/plain')
+        if job && !job.nil? && job.status
+          @logger.log("Job status #{job.status}")
+        else
+          @logger.log("No job has been done")
+        end
       end
 
     end
