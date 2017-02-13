@@ -34,7 +34,9 @@ module Prnstn
     end
 
     def log(msg)
-      puts "#{msg}"
+      if @env == 'production'
+        puts "#{msg}"
+      end
       if @aio
         @log.write_nonblock("#{Time.now} || #{msg}\n")
       else
@@ -47,7 +49,7 @@ module Prnstn
   # (fame goes to Mongrel developers)
   def self.log(*args)
     # If no logger has been defined yet at this point, log to STDOUT.
-    $PLogger ||= Prnstn::Log.new(STDOUT, :debug)
+    $PLogger ||= Prnstn::Logger.new(STDOUT, :debug)
     $PLogger.log(*args)
   end
 end

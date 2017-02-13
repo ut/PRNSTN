@@ -28,6 +28,10 @@ module Prnstn
         options[:instant_print] = true
       end
 
+    end
+
+
+    def prepare
       # TODO:
       # implement $DEBUG and logfile warnings on/off
 
@@ -57,11 +61,13 @@ module Prnstn
       else
         @logger.log('No token provided. Quitting...')
         'No token provided. Quitting...!'
-        # exit
       end
     end
 
     def run!
+
+      prepare
+
       @logger.log('Start application...')
       # TODO
 
