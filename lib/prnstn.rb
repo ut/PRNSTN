@@ -1,4 +1,4 @@
-@env = 'production' unless @env
+@@env = 'production' unless @env
 
 require 'twitter'
 require 'date'
@@ -105,10 +105,10 @@ module Prnstn
         @logger.log('INSTANT PRINT... printing a "hello world" message')
 
         job = ''
-        if @options[:dry_run]
-          @logger.log('INSTANT PRINT... printing disabled, skipping (dry run mode)')
-        else
+        if @options[:live_run]
           job = @printer.print_data('hello world', 'text/plain')
+        else
+          @logger.log('INSTANT PRINT... printing disabled, skipping (dry run mode)')
         end
 
         while !quit
@@ -186,15 +186,15 @@ module Prnstn
 
     def prn_test_print
       @logger.log('Print test...')
-      if @options[:dry_run]
-        @logger.log('TEST PRINT... printing disabled, skipping (dry run mode)')
-      else
+      if @options[:live_run]
         job = @printer.print_data('hello world', 'text/plain')
         if job && !job.nil? && job.status
           @logger.log("Job status #{job.status}")
         else
           @logger.log("No job has been done")
         end
+      else
+        @logger.log('TEST PRINT... printing disabled, skipping (dry run mode)')
       end
 
     end
