@@ -105,8 +105,10 @@ module Prnstn
         @logger.log('INSTANT PRINT... printing a "hello world" message')
 
         job = ''
+        # first run, print default image
         if @options[:live_run]
-          job = @printer.print_data('hello world', 'text/plain')
+          # job = @printer.print_data('hello world', 'text/plain')
+          job = @printer.print_file('assets/INTPRN_hello_world.png');
         else
           @logger.log('INSTANT PRINT... printing disabled, skipping (dry run mode)')
         end
