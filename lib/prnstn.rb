@@ -125,11 +125,11 @@ module Prnstn
             messages.each do |m|
 
               # TODO move printing to an extra class, more generic: screen/log output only, pdf print, real print
-
-              puts "-----------------\n"
-              puts "##{m.id} // #{m.sid} // #{m.date}\n"
-              puts "#{m.body}\n"
-              puts "-----------------\n"
+              data = "-----------------\n"
+              data =+ "##{m.id} // #{m.sid} // #{m.date}\n"
+              data =+ "#{m.body}\n"
+              data =+ "-----------------\n"
+              job = @printer.print_data(data, 'text/plain')
               m.printed = true
               m.save!
             end
@@ -152,7 +152,8 @@ module Prnstn
 
       # prints.each do |p|
       if printers.count > 0
-        @printer = CupsPrinter.new(printers.first)
+        # TODO: read param of printer ID, otherwise try to find it via name regex
+        @printer = CupsPrinter.new(printers.second)
         @logger.log("A printer was found! *#{@printer.name}*")
 
       else
