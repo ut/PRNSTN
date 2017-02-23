@@ -126,10 +126,17 @@ module Prnstn
 
               # TODO move printing to an extra class, more generic: screen/log output only, pdf print, real print
               data = "-----------------\n"
-              data =+ "##{m.id} // #{m.sid} // #{m.date}\n"
-              data =+ "#{m.body}\n"
-              data =+ "-----------------\n"
-              job = @printer.print_data(data, 'text/plain')
+              data << "##{m.id} // #{m.sid} // #{m.date}\n"
+
+              # TODO: parse body for links, get image, display.
+              data << "#{m.body}\n"
+              data << "-----------------\n"
+              if @options[:live_run]
+                job = @printer.print_data(data, 'text/plain')
+              else
+                @logger.log('INSTANT PRINT... printing disabled, skipping (dry run mode)')
+                @logger.log(data)
+              end
               m.printed = true
               m.save!
             end
@@ -153,7 +160,7 @@ module Prnstn
       # prints.each do |p|
       if printers.count > 0
         # TODO: read param of printer ID, otherwise try to find it via name regex
-        @printer = CupsPrinter.new(printers.second)
+        @printer = CupsPrinter.new(printers.first)
         @logger.log("A printer was found! *#{@printer.name}*")
 
       else

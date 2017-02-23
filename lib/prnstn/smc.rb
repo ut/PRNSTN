@@ -58,7 +58,7 @@ module Prnstn
         else
           Prnstn.log("Search for message ID. Its a new message #{mention.id}")
 
-          body = "#{mention.text}\n A message from #{mention.user.screen_name}\n"
+          body = "#{mention.text}\n<<<<<< A message from #{mention.user.screen_name} >>>>>>>\n"
           # TODO: if image, get image
 
           message = [
