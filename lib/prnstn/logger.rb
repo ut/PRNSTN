@@ -34,7 +34,7 @@ module Prnstn
     end
 
     def log(msg)
-      if @@env == 'production'
+      if $env == 'production'
         puts "#{msg}"
       end
       if @aio

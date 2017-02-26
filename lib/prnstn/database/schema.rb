@@ -2,12 +2,12 @@ require 'sqlite3'
 require 'active_record'
 
 
-puts "Env: #{@@env}"
+puts "Env: #{$env}"
 
 
 ActiveRecord::Base.establish_connection(
   :adapter => 'sqlite3',
-  :database => "prnstn-#{@@env}.db"
+  :database => "prnstn-#{$env}.db"
 )
 
 class Message < ActiveRecord::Base

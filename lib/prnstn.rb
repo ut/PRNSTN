@@ -1,4 +1,4 @@
-@@env = 'production' unless @env
+$env = 'production' unless $env
 
 require 'twitter'
 require 'date'
@@ -98,7 +98,19 @@ module Prnstn
       end
 
       # 5 print
-      if options[:instant_print]
+      if options[:onpush_print]
+        @logger.log('ONPUSH PRINT mode...')
+
+        # TODO: initial print
+
+        # TODO: loop
+
+          # TODO: if run > 20.times check SMC for a new message
+
+          # TODO: wait for keypress
+
+
+      elsif options[:instant_print]
         @logger.log('INSTANT PRINT mode...')
 
         # print first messsage
@@ -115,9 +127,9 @@ module Prnstn
 
         while !quit
           @logger.log('INSTANT PRINT listening')
-          # TODO
-          #  check via Prnstn::SMC
-          #  print all messages since last run/llop!
+          # TODO: check via Prnstn::SMC!!!!
+
+          #  print all messages since last run/loop!
           messages = Message.where(printed: false)
           if messages && messages.count > 0
             @logger.log("INSTANT PRINT... printing #{messages.count} messages")
@@ -148,6 +160,8 @@ module Prnstn
         end
         #
 
+      else
+        raise 'Error'
       end
 
     end

@@ -6,7 +6,7 @@ This program is under development, see TODO for a list of open tasks and feature
 
 ## Prerequisites
 
-Ruby 2.x, Rubygems
+Ruby 2.x, Rubygems, CUPS
 
 ```bash
 $ sudo apt-get install libcups2 libcups2-dev
