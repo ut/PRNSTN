@@ -62,15 +62,26 @@ module Prnstn
 
     def print(m)
 
-      if @options[:live_run]
+      data = ''
+      # TODO: more generic: screen/log output only, pdf print, real print
+      # data << "-----------------\n"
+      data << "##{m.id} // #{m.sid} // #{m.date}\n"
+
+      # TODO: parse body for links, get image, display.
+      data << "#{m.body}\n"
+      # data << "-----------------\n"
+      if @options && @options[:live_run]
+        Prnstn.log('PRINT... printing a job')
         job = @printer.print_data(data, 'text/plain')
         if m.imageurl && !m.imageurl.nil?
           job_image = @printer.print_file(m.imageurl);
         end
       else
-        @logger.log('INSTANT PRINT... printing disabled, skipping (dry run mode)')
-        @logger.log(data)
+        Prnstn.log('PRINT... printing disabled, skipping (dry run mode)')
+        Prnstn.log(data)
       end
+      m.printed = true
+      m.save!
     end
 
   end

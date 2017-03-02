@@ -60,7 +60,7 @@ module Prnstn
             date: Time.now,
             queued: true
           ]
-          Message.save!(initial_message)
+          Message.create!(initial_message)
           @logger.log("Datebase first run: Created initial message")
         end
         @messages = Message.all
@@ -178,25 +178,7 @@ module Prnstn
             @logger.log("INSTANT PRINT... printing #{messages.count} messages")
 
             messages.each do |m|
-
-              # TODO move printing to an extra class, more generic: screen/log output only, pdf print, real print
-              data = "-----------------\n"
-              data << "##{m.id} // #{m.sid} // #{m.date}\n"
-
-              # TODO: parse body for links, get image, display.
-              data << "#{m.body}\n"
-              data << "-----------------\n"
-              if @options[:live_run]
-                job = @printer.print_data(data, 'text/plain')
-                if m.imageurl && !m.imageurl.nil?
-                  job_image = @printer.print_file(m.imageurl);
-                end
-              else
-                @logger.log('INSTANT PRINT... printing disabled, skipping (dry run mode)')
-                @logger.log(data)
-              end
-              m.printed = true
-              m.save!
+              printer.print(m)
             end
 
           else
