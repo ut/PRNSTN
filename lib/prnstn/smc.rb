@@ -80,6 +80,7 @@ module Prnstn
           # remove image link form mention.text. link looks like http://t.co/SRCatB4oqd
           text = mention.text.sub "#{mention.media[0].url}", '++++++'
           body = "#{text}\n<<<<<< A message from #{mention.user.screen_name} >>>>>>>\n"
+          # TODO: set date to the date the message has been created
           message = [
             sid: mention.id,
             title: "m",

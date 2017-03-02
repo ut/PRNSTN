@@ -140,8 +140,8 @@ module Prnstn
 
             if pin_state == 0
               @logger.log("INSTANT PRINT... push! push!")
-              # check how may new messages
-              messages = Message.where(printed: false)
+              # TODO: smart calc of the latest x messages
+              messages = Message.limit(3)
               if messages && messages.count > 0
 
                 @logger.log("INSTANT PRINT... printing #{messages.count} messages")
@@ -173,6 +173,7 @@ module Prnstn
 
           #  print all messages since last run/loop!
           messages = Message.where(printed: false)
+
           if messages && messages.count > 0
             @logger.log("INSTANT PRINT... printing #{messages.count} messages")
 
