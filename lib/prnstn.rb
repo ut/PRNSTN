@@ -7,9 +7,10 @@ require 'cupsffi'
 require 'prnstn/version'
 require 'prnstn/config'
 require 'prnstn/logger'
+require 'helper/fakeapi'
 require 'prnstn/database/schema'
+require 'prnstn/printer'
 require 'prnstn/smc'
-require 'prnstn/fakeapi'
 
 
 module Prnstn
@@ -72,10 +73,10 @@ module Prnstn
       # TODO
 
       # 1 check printer status
-      prn_find
-      prn_status
-      prn_test_print
-      prn_status
+      printer = Prnstn::Printer.new()
+      printer.status
+      printer.test_print
+      printer.status
 
       # 2 API comm w/CTRLSRV
       # check_remote_host
@@ -169,77 +170,6 @@ module Prnstn
 
     end
 
-    def prn_find
-      @logger.log('Finding a printer...')
-      # get all printers
-      printers = CupsPrinter.get_all_printer_names
-
-      # prints.each do |p|
-      if printers.count > 0
-        # TODO: read param of printer ID, otherwise try to find it via name regex
-        @printer = CupsPrinter.new(printers.first)
-        @logger.log("A printer was found! *#{@printer.name}*")
-
-      else
-        @logger.log('No printer available on this machine. Quitting...')
-        exit
-      end
-    end
-
-    def prn_status
-      @logger.log('Checking printer status...')
-
-      # show all attributes:
-      # puts printer.attributes
-      # puts printer.state[:state]
-      # :state is :idle, :printing, or :stopped.
-      # TODO handle printer errrors, like paper jam
-
-      last_used = Time.at(@printer.attributes["printer-state-change-time"].to_i)
-
-      # TODO move this to a helper function!
-      if @printer.state[:reasons]
-        reason = @printer.state[:reasons].join(',')
-        reason = "~ \"#{reason}\""
-      else
-        reason = '~ ...'
-      end
-
-
-      state = "*#{@printer.name}* | State: #{@printer.state[:state]} #{reason}  | Last usage: #{last_used})"
-      @logger.log("#{state}")
-
-    end
-
-    def prn_test_print
-      @logger.log('Print test...')
-      if @options[:live_run]
-        job = @printer.print_data('hello world', 'text/plain')
-        if job && !job.nil? && job.status
-          @logger.log("Job status #{job.status}")
-        else
-          @logger.log("No job has been done")
-        end
-      else
-        @logger.log('TEST PRINT... printing disabled, skipping (dry run mode)')
-      end
-
-    end
-
-    def print_message
-
-
-    end
-
-    def send
-      Prnstn::Logger('msg sent')
-    end
-
-    def test
-      msg = 'Just a Test'
-      Prnstn.test(msg)
-      Prnstn::Logger('printer tested')
-    end
 
   end
 end
