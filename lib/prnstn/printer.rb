@@ -63,6 +63,10 @@ module Prnstn
 
     def print(m)
 
+      # FIX IT: there are no @options here
+      @options = Hash.new()
+      @options[:live_run] = false
+
       data = ''
       # TODO: more generic: screen/log output only, pdf print, real print
       # data << "-----------------\n"
@@ -74,7 +78,8 @@ module Prnstn
       if @options && @options[:live_run]
         Prnstn.log('PRINT... printing a job')
         job = @printer.print_data(data, 'text/plain')
-        if m.imageurl && !m.imageurl.nil?
+        if m.imageurl && m.imageurl.length > 0
+          Prnstn.log("PRINT... file from #{m.imageurl}");
           job_image = @printer.print_file(m.imageurl);
         end
       else
