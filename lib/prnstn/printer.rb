@@ -48,7 +48,8 @@ module Prnstn
     def test_print
       Prnstn.log('Print test...')
       if @options && @options[:live_run]
-        job = @printer.print_data('hello world', 'text/plain')
+        # job = @printer.print_data('hello world', 'text/plain')
+        job = @printer.print_file('assets/INTPRN_hello_world.png');
         if job && !job.nil? && job.status
           Prnstn.log("Job status #{job.status}")
         else

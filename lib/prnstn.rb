@@ -112,7 +112,7 @@ module Prnstn
 
       job = ''
       if @options[:live_run]
-        job = @printer.print_file('assets/INTPRN_hello_world.png');
+        printer.test_print
       else
         @logger.log('PRINT... printing disabled, skipping (dry run mode)')
       end
