@@ -2,7 +2,9 @@
 
 Script to handle a printer and feed it w/social media content
 
-This program is under development, see TODO for a list of open tasks and features
+This program is under development, not ready for producive use. See TODO for a (incomplete) list of open tasks and features
+
+See [INTPRN](https://ut.github.io/INTPRN/)
 
 ## Prerequisites
 
@@ -17,7 +19,7 @@ $ sudo apt-get install libcups2 libcups2-dev
 ```bash
   $ bundle install
 ```
-Create a Twitter application via https://apps.twitter.com/ and export the following credentials into your local environment:
+Create a Twitter application via [apps.twitter.com](https://apps.twitter.com/) and export the following credentials into your local environment:
 
 ```bash
   $ export CONSUMER_KEY="..."

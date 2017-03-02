@@ -1,6 +1,6 @@
 $LOAD_PATH.unshift File.expand_path('../../lib', __FILE__)
 
-@env = 'test'
+$env = 'test'
 
 require 'prnstn'
 

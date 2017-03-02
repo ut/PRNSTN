@@ -17,4 +17,16 @@ module Prnstn
   ACCESS_TOKEN = ENV['ACCESS_TOKEN']
   ACCESS_TOKEN_SECRET = ENV['ACCESS_TOKEN_SECRET']
 
+
+
+  # SMC specific
+  ASSET_TWITTER_PATH = 'system/twitter'
+
+  require 'fileutils'
+
+  dirname = File.dirname(ASSET_TWITTER_PATH)
+  unless File.directory?(ASSET_TWITTER_PATH)
+    FileUtils.mkdir_p(ASSET_TWITTER_PATH)
+  end
+
 end
