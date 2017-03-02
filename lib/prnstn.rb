@@ -13,6 +13,8 @@ require 'prnstn/printer'
 require 'prnstn/smc'
 
 
+
+
 module Prnstn
   class Main
 
@@ -22,12 +24,17 @@ module Prnstn
 
     def initialize(options)
 
+      if MACHINE == 'raspberry'
+        require 'wiringpi'
+      end
       @options = options
 
       # default
       if !options[:onpush_print]
         options[:instant_print] = true
       end
+
+
 
     end
 
@@ -38,7 +45,7 @@ module Prnstn
 
       @logger = Prnstn::Logger.new('log/prnstn.log')
       @logger.log('----------------')
-      @logger.log("#{Prnstn::NAME} #{Prnstn::VERSION} on a #{ENV['_system_name']} #{ENV['_system_version']} machine")
+      @logger.log("#{Prnstn::NAME} #{Prnstn::VERSION} on a  machine")
       @logger.log('----------------')
       @logger.log('Init application...')
       if ENV['REMOTE_TOKEN']
@@ -53,7 +60,7 @@ module Prnstn
             date: Time.now,
             queued: true
           ]
-          Message.create(initial_message)
+          Message.save!(initial_message)
           @logger.log("Datebase first run: Created initial message")
         end
         @messages = Message.all
@@ -98,33 +105,67 @@ module Prnstn
         @logger.log('INSTANT PRINT... omitting queue calculations')
       end
 
-      # 5 print
+      ### 5 print
+
+      # first run, print default image
+      @logger.log('PRINT... printing a "hello world" message')
+
+      job = ''
+      if @options[:live_run]
+        job = @printer.print_file('assets/INTPRN_hello_world.png');
+      else
+        @logger.log('PRINT... printing disabled, skipping (dry run mode)')
+      end
+
+
       if options[:onpush_print]
         @logger.log('ONPUSH PRINT mode...')
 
-        # TODO: initial print
+        if MACHINE == 'raspberry'
 
-        # TODO: loop
+          # setup GPIO, get pin #4
+          io = WiringPi::GPIO.new do |gpio|
+            gpio.pin_mode(4, WiringPi::INPUT)
+          end
 
-          # TODO: if run > 20.times check SMC for a new message
+          # wiringPi pin #4 eq Raspi pin 23
+          pin_state = io.digital_read(4) # Read from pin 1
+          puts pin_state
 
-          # TODO: wait for keypress
+          loop do
+            pin_state = io.digital_read(4) # Read from pin 1
+
+            # TODO: if run > 20.times check SMC for a new message
+            # Prnstn::SMC.new
+
+            if pin_state == 0
+              @logger.log("INSTANT PRINT... push! push!")
+              # check how may new messages
+              messages = Message.where(printed: false)
+              if messages && messages.count > 0
+
+                @logger.log("INSTANT PRINT... printing #{messages.count} messages")
+
+                messages.each do |m|
+                  printer.print(m)
+                end
+              end
+
+           else
+              puts "-----"
+           end
+           io.delay(600)
+          end
+
+        else
+          @logger.log("ONPUSH PRINT... sorry you're on a machine without a GPIO port. quitting..")
+          exit
+        end
+
 
 
       elsif options[:instant_print]
         @logger.log('INSTANT PRINT mode...')
-
-        # print first messsage
-        @logger.log('INSTANT PRINT... printing a "hello world" message')
-
-        job = ''
-        # first run, print default image
-        if @options[:live_run]
-          # job = @printer.print_data('hello world', 'text/plain')
-          job = @printer.print_file('assets/INTPRN_hello_world.png');
-        else
-          @logger.log('INSTANT PRINT... printing disabled, skipping (dry run mode)')
-        end
 
         while !quit
           @logger.log('INSTANT PRINT listening')

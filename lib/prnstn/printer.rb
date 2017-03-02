@@ -60,9 +60,17 @@ module Prnstn
 
     end
 
-    def print(mode,data)
+    def print(m)
 
-
+      if @options[:live_run]
+        job = @printer.print_data(data, 'text/plain')
+        if m.imageurl && !m.imageurl.nil?
+          job_image = @printer.print_file(m.imageurl);
+        end
+      else
+        @logger.log('INSTANT PRINT... printing disabled, skipping (dry run mode)')
+        @logger.log(data)
+      end
     end
 
   end

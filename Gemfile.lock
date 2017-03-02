@@ -6,23 +6,24 @@ PATH
 GEM
   remote: https://rubygems.org/
   specs:
-    activemodel (5.0.0.1)
-      activesupport (= 5.0.0.1)
-    activerecord (5.0.0.1)
-      activemodel (= 5.0.0.1)
-      activesupport (= 5.0.0.1)
-      arel (~> 7.0)
-    activesupport (5.0.0.1)
-      concurrent-ruby (~> 1.0, >= 1.0.2)
+    activemodel (4.2.8)
+      activesupport (= 4.2.8)
+      builder (~> 3.1)
+    activerecord (4.2.8)
+      activemodel (= 4.2.8)
+      activesupport (= 4.2.8)
+      arel (~> 6.0)
+    activesupport (4.2.8)
       i18n (~> 0.7)
       minitest (~> 5.1)
+      thread_safe (~> 0.3, >= 0.3.4)
       tzinfo (~> 1.1)
     addressable (2.5.0)
       public_suffix (~> 2.0, >= 2.0.2)
-    arel (7.1.4)
+    arel (6.0.4)
     ast (2.3.0)
     buftok (0.2.0)
-    concurrent-ruby (1.0.2)
+    builder (3.2.3)
     crack (0.4.3)
       safe_yaml (~> 1.0.0)
     cupsffi (0.1.5)
@@ -44,10 +45,10 @@ GEM
       domain_name (~> 0.5)
     http-form_data (1.0.1)
     http_parser.rb (0.6.0)
-    i18n (0.7.0)
+    i18n (0.8.1)
     memoizable (0.4.2)
       thread_safe (~> 0.3, >= 0.3.1)
-    minitest (5.9.1)
+    minitest (5.10.1)
     multipart-post (2.0.0)
     naught (1.1.0)
     parser (2.3.3.1)
@@ -100,13 +101,14 @@ GEM
       addressable (>= 2.3.6)
       crack (>= 0.3.2)
       hashdiff
+    wiringpi (2.32.0)
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
   PRNSTN!
-  activerecord
+  activerecord (~> 4.2)
   bundler (~> 1.13)
   cupsffi (~> 0.1)
   rake (~> 10.0)
@@ -115,6 +117,7 @@ DEPENDENCIES
   sqlite3
   twitter
   webmock (~> 2.3)
+  wiringpi (~> 2.3)
 
 BUNDLED WITH
    1.13.6

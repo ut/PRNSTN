@@ -8,6 +8,11 @@ module Prnstn
 
     end
 
+    def check
+      if SMC_PLATTFORM == 'twitter'
+        Prnstn::SMC_Twitter.new.run!
+      end
+    end
   end
 
   class SMC_Twitter

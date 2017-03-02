@@ -19,6 +19,15 @@ module Prnstn
 
 
 
+  # manually set the machine name (aka HOST aka COMPUTER)
+  if ENV['MACHINE']
+    MACHINE = ENV['MACHINE']
+  elsif
+    MACHINE = "#{ENV['_system_name']} #{ENV['_system_version']}"
+  else
+    MACHINE = 'unknown'
+  end
+
   # SMC specific
   ASSET_TWITTER_PATH = 'system/twitter'
 

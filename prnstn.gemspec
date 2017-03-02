@@ -40,6 +40,7 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'cupsffi', '~> 0.1'
   spec.add_development_dependency 'rubocop', '~> 0.47.1'
   spec.add_development_dependency 'webmock', '~> 2.3'
+  spec.add_development_dependency 'wiringpi', '~> 2.3'
   spec.add_development_dependency 'twitter'
   # todo, remove 4.2 restriction if running at a ruby 2.2 system. since jessie provides 2.1 only
   spec.add_development_dependency 'activerecord', '~>4.2'
