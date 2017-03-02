@@ -34,6 +34,8 @@ Create a Twitter application via [apps.twitter.com](https://apps.twitter.com/) a
   $ REMOTE_TOKEN=xxxx bin/prnstn
 ```
 
+Since we use Raspberry Pi GPIO, we need to run this script as root!
+
 ## Development
 
 ### Contributing
