@@ -4,7 +4,7 @@ Script to handle a printer and feed it w/social media content
 
 This program is under development, not ready for producive use. See TODO for a (incomplete) list of open tasks and features
 
-See [INTPRN](https://ut.github.io/INTPRN/)
+See [INTPRN](https://ut.github.io/INTPRN/) for more informations about the project, this software is part of.
 
 ## Prerequisites
 
