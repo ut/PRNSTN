@@ -8,17 +8,19 @@ See [INTPRN](https://ut.github.io/INTPRN/) for more informations about the proje
 
 ## Prerequisites
 
-Ruby 2.x, Rubygems, CUPS
+Ruby 2.x, Rubygems, CUPS 2.1.3, wiringpi, Rspec 3.5.0
 
 ```bash
 $ sudo apt-get install libcups2 libcups2-dev
 ```
+
 
 ## Installation
 
 ```bash
   $ bundle install
 ```
+
 Create a Twitter application via [apps.twitter.com](https://apps.twitter.com/) and export the following credentials into your local environment:
 
 ```bash
