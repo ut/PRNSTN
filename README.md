@@ -21,6 +21,16 @@ $ sudo apt-get install libcups2 libcups2-dev
   $ bundle install
 ```
 
+### Setup a social media plattform
+
+To talk with the Internet printer, the printer needs his own social media channel. You can either setup a GNU Social or Twitter account. Other platforms may be included in the future (you contribute to this project by adding your favorite platform).
+
+### GNU Social
+
+(pending)
+
+### Twitter
+
 Create a Twitter application via [apps.twitter.com](https://apps.twitter.com/) and export the following credentials into your local environment:
 
 ```bash

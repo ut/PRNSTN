@@ -4,8 +4,11 @@ module Prnstn
     def initialize
       if SMC_PLATTFORM == 'twitter'
         Prnstn::SMC_Twitter.new.run!
+      elsif SMC_PLATTFORM == 'gnusocial'
+        Prnstn::SMC_GNUSocial.new.run!
+      else
+        raise
       end
-
     end
 
     def check
@@ -13,6 +16,30 @@ module Prnstn
         Prnstn::SMC_Twitter.new.run!
       end
     end
+  end
+
+  class SMC_GNUSocial
+    require "open-uri"
+
+    def initialize(*)
+
+    end
+
+    def run!
+
+      # TODO: fetch mention (as json)
+      # via GNUSOCIAL_MENTIONS_ENDPOINT
+
+      # TODO: convert messages (store values in common format)
+      # gnusocial values
+      #  id
+      #  text
+      #  created_at "Thu May 11 11:45:42 +0200 2017"
+      #  attachments > 0 > url|thumb_url|large_thumb_url
+      #  user > screen_name
+      #  user > location
+    end
+
   end
 
   class SMC_Twitter

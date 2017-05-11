@@ -11,11 +11,21 @@ module Prnstn
   REMOTE_TOKEN = ENV['REMOTE_TOKEN']
 
   # configuration of the used social media plattform
-  SMC_PLATTFORM = 'twitter'
+  SMC_PLATTFORMS = ['twitter','gnusocial']
+
+  # twitter api
   CONSUMER_KEY = ENV['CONSUMER_KEY']
   CONSUMER_SECRET = ENV['CONSUMER_SECRET']
   ACCESS_TOKEN = ENV['ACCESS_TOKEN']
   ACCESS_TOKEN_SECRET = ENV['ACCESS_TOKEN_SECRET']
+
+  # gnusocial api, https://gnusocial.net/doc/twitterapi
+  # "User nicknames are unique, but they are not globally unique. Use the ID number instead."
+  GNUSOCIAL_ID = '1829'
+  GNUSOCIAL_MENTIONS_ENDPOINT  = 'https://schnackr.hamburg.freifunk.net/api/statuses/mentions/'+GNUSOCIAL_ID+'.json'
+
+
+
 
 
 
