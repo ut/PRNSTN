@@ -14,7 +14,8 @@ module Prnstn
         @printer
       else
         Prnstn.log('No @printer available on this machine. Quitting...')
-        exit
+        @printer = Array.new
+        # exit
       end
     end
 

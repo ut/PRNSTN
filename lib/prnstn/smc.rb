@@ -15,17 +15,38 @@ module Prnstn
       if SMC_PLATTFORM == 'twitter'
         Prnstn::SMC_Twitter.new.run!
       end
+
+      # TODO: gunusocial
     end
   end
 
   class SMC_GNUSocial
-    require "open-uri"
+
+    require 'open-uri'
+    require 'json'
 
     def initialize(*)
 
     end
 
     def run!
+
+      fetch_mentions
+      # convert_mentions if @last_mentions
+
+    end
+
+    def fetch_mentions
+      Prnstn.log('Got last 5 mentions from GNUSocial...')
+      result = JSON.parse(open(GNUSOCIAL_MENTIONS_ENDPOINT).read)
+      @last_mentions = result[0..4]
+      # TODO: handle timeout
+
+      # @last_mentions = [{}]
+      @last_mentions.each_with_index do |m,i|
+        Prnstn.log("--message #{i} #{m['id']} #{m['created_at']}")
+      end
+    end
 
       # TODO: fetch mention (as json)
       # via GNUSOCIAL_MENTIONS_ENDPOINT
@@ -38,13 +59,13 @@ module Prnstn
       #  attachments > 0 > url|thumb_url|large_thumb_url
       #  user > screen_name
       #  user > location
-    end
+
 
   end
 
   class SMC_Twitter
 
-    require "open-uri"
+    require 'open-uri'
 
 
     def initialize(*)

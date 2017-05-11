@@ -13,6 +13,8 @@ module Prnstn
   # configuration of the used social media plattform
   SMC_PLATTFORMS = ['twitter','gnusocial']
 
+  SMC_PLATTFORM = 'gnusocial'
+
   # twitter api
   CONSUMER_KEY = ENV['CONSUMER_KEY']
   CONSUMER_SECRET = ENV['CONSUMER_SECRET']
@@ -21,6 +23,7 @@ module Prnstn
 
   # gnusocial api, https://gnusocial.net/doc/twitterapi
   # "User nicknames are unique, but they are not globally unique. Use the ID number instead."
+
   GNUSOCIAL_ID = '1829'
   GNUSOCIAL_MENTIONS_ENDPOINT  = 'https://schnackr.hamburg.freifunk.net/api/statuses/mentions/'+GNUSOCIAL_ID+'.json'
 
