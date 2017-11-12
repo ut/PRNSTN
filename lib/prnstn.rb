@@ -158,7 +158,7 @@ module Prnstn
           end
 
         else
-          @logger.log("ONPUSH PRINT... sorry you're on a machine without a GPIO port. quitting..")
+          @logger.log("ONPUSH PRINT... sorry you're on a machine without a GPIO port. Maybe you want to re-run with INSTANT PRINT mode? quitting... ")
           exit
         end
 

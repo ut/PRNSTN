@@ -5,7 +5,7 @@ module Prnstn
   MESSAGE_QUEUE = 5
   MESSAGE_LIFETIME = '1w' # format?
 
-  # configuration of the remote host (control/monitoring instance)
+  # configuration of the remote host (control/monitoring instance) (TODO)
   REMOTE_HOST = ''
   REMOTE_PORT = ''
   REMOTE_TOKEN = ENV['REMOTE_TOKEN']
