@@ -27,13 +27,13 @@ module Prnstn
       if MACHINE == 'raspberry'
         require 'wiringpi'
       end
-      @options = options
 
       # default
       if !options[:onpush_print]
         options[:instant_print] = true
       end
 
+      @options = options
 
 
     end
@@ -80,7 +80,7 @@ module Prnstn
       # TODO
 
       # 1 check printer status
-      printer = Prnstn::Printer.new()
+      printer = Prnstn::Printer.new(@options)
       printer.status
       printer.test_print
       printer.status
@@ -173,6 +173,7 @@ module Prnstn
 
           #  print all messages since last run/loop!
           messages = Message.where(printed: false)
+          # messages = Message.all
 
           if messages && messages.count > 0
             @logger.log("INSTANT PRINT... printing #{messages.count} messages")

@@ -1,7 +1,11 @@
 module Prnstn
   class Printer
 
-    def initialize(*)
+    def initialize(options)
+
+      @options = options
+
+
       Prnstn.log('Finding a @printer...')
       # get all printers
       printers = CupsPrinter.get_all_printer_names
@@ -47,6 +51,7 @@ module Prnstn
     end
 
     def test_print
+
       Prnstn.log('Print test...')
       if @options && @options[:live_run]
         # job = @printer.print_data('hello world', 'text/plain')
@@ -63,11 +68,6 @@ module Prnstn
     end
 
     def print(m)
-
-      # FIX IT: there are no @options here
-      @options = Hash.new()
-      @options[:live_run] = false
-
       data = ''
       # TODO: more generic: screen/log output only, pdf print, real print
       # data << "-----------------\n"
