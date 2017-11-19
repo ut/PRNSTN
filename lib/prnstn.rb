@@ -3,6 +3,7 @@ $env = 'production' unless $env
 require 'twitter'
 require 'date'
 require 'cupsffi'
+require 'colorize'
 
 require 'prnstn/version'
 require 'prnstn/config'
@@ -65,8 +66,7 @@ module Prnstn
         @logger.log("Datebase lookup: #{@messages.count} messages stored")
 
       else
-        @logger.log('No token provided. Quitting...')
-        'No token provided...!'
+        # TODO: @logger.log('No token provided'.orange)
       end
     end
 
@@ -111,7 +111,7 @@ module Prnstn
       if MACHINE == 'raspberry'
         onpush_print_raspi
       else
-        @logger.log("ONPUSH PRINT... sorry you're on a machine without a GPIO port. Maybe you want to re-run with INSTANT PRINT mode? quitting... ")
+        @logger.log("ONPUSH PRINT... sorry you're on a machine without a GPIO port. Maybe you want to re-run with INSTANT PRINT mode? quitting... ".red)
         exit
       end
     end

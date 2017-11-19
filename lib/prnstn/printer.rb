@@ -17,9 +17,9 @@ module Prnstn
         Prnstn.log("A @printer was found! *#{@printer.name}*")
         @printer
       else
-        Prnstn.log('No @printer available on this machine. Quitting...')
-        @printer = Array.new
-        # exit
+        Prnstn.log('No @printer available on this machine. Quitting...'.red)
+        # @printer = Array.new
+        exit
       end
     end
 

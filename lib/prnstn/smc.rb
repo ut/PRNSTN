@@ -73,6 +73,11 @@ module Prnstn
     end
 
     def run!
+
+      if !ENV['CONSUMER_KEY']
+        Prnstn.log("No Twitter consumer_key given. Quitting... ".red)
+        exit
+      end
       fetch_mentions if auth
       convert_mentions if @last_mentions
     end
@@ -87,7 +92,8 @@ module Prnstn
       if @client
         Prnstn.log('Successfully authorized by Twitter API...')
       else
-        Prnstn.log('Ups, there might be problem with your Twitter API credentials...')
+        Prnstn.log('Ups, there might be problem with your Twitter API credentials...'.red)
+        exit
       end
       true
     end

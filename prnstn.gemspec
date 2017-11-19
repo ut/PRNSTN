@@ -45,4 +45,5 @@ Gem::Specification.new do |spec|
   # todo, remove 4.2 restriction if running at a ruby 2.2 system. since jessie provides 2.1 only
   spec.add_development_dependency 'activerecord', '~>4.2'
   spec.add_development_dependency 'sqlite3'
+  spec.add_development_dependency 'colorize'
 end
