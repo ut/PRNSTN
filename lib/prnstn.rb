@@ -40,9 +40,7 @@ module Prnstn
 
 
     def prepare
-      # TODO:
-      # implement $DEBUG and logfile warnings on/off
-
+      # TODO: implement $DEBUG and logfile warnings on/off
       @logger = Prnstn::Logger.new('log/prnstn.log')
       @logger.log('----------------')
       @logger.log("#{Prnstn::NAME} #{Prnstn::VERSION} on a  machine")
@@ -73,11 +71,8 @@ module Prnstn
     end
 
     def run!
-
-      prepare
-
       @logger.log('Start application...')
-      # TODO
+      prepare
 
       # 1 check printer status
       printer = Prnstn::Printer.new(@options)
@@ -85,19 +80,10 @@ module Prnstn
       printer.test_print
       printer.status
 
-      # 2 API comm w/CTRLSRV
-      # check_remote_host
-      # check_token
-      # get_config_update (otherwise use defaults)
-
-      # 3 SMC setup and status
-      # check_smc_setup
-
-      # read msg from SMC
+      # 2 read msg from SMC
       Prnstn::SMC.new
-
       if options[:onpush_print]
-        # 4 queue calculations (storage)
+        # 3 queue calculations (storage)
         # read_saved_queue or init new(empty) one
         # remove old msg (msg.age  > 1.week)
         # add newest msg from SMC
@@ -105,11 +91,8 @@ module Prnstn
         @logger.log('INSTANT PRINT... omitting queue calculations')
       end
 
-      ### 5 print
-
-      # first run, print default image
+       # first run, print default image
       @logger.log('PRINT... printing a "hello world" message')
-
       job = ''
       if @options[:live_run]
         printer.test_print
@@ -117,84 +100,87 @@ module Prnstn
         @logger.log('PRINT... printing disabled, skipping (dry run mode)')
       end
 
-
+      # print modes
       if options[:onpush_print]
-        @logger.log('ONPUSH PRINT mode...')
-
-        if MACHINE == 'raspberry'
-
-          # setup GPIO, get pin #4
-          io = WiringPi::GPIO.new do |gpio|
-            gpio.pin_mode(4, WiringPi::INPUT)
-          end
-
-          # wiringPi pin #4 eq Raspi pin 23
-          pin_state = io.digital_read(4) # Read from pin 1
-          puts pin_state
-
-          loop do
-            pin_state = io.digital_read(4) # Read from pin 1
-
-            # TODO: if run > 20.times check SMC for a new message
-            # Prnstn::SMC.new
-
-            if pin_state == 0
-              @logger.log("INSTANT PRINT... push! push!")
-              # TODO: smart calc of the latest x messages
-              messages = Message.limit(3)
-              if messages && messages.count > 0
-
-                @logger.log("INSTANT PRINT... printing #{messages.count} messages")
-
-                messages.each do |m|
-                  printer.print(m)
-                end
-              end
-
-           else
-              puts "-----"
-           end
-           io.delay(600)
-          end
-
-        else
-          @logger.log("ONPUSH PRINT... sorry you're on a machine without a GPIO port. Maybe you want to re-run with INSTANT PRINT mode? quitting... ")
-          exit
-        end
-
-
-
+        onpush_print
       elsif options[:instant_print]
-        @logger.log('INSTANT PRINT mode...')
-
-        while !quit
-          @logger.log('INSTANT PRINT listening')
-          # TODO: check via Prnstn::SMC!!!!
-
-          #  print all messages since last run/loop!
-          messages = Message.where(printed: false)
-          # messages = Message.all
-
-          if messages && messages.count > 0
-            @logger.log("INSTANT PRINT... printing #{messages.count} messages")
-
-            messages.each do |m|
-              printer.print(m)
-            end
-
-          else
-            @logger.log("INSTANT PRINT... no new messages, nothing to print")
-          end
-          sleep(5)
-        end
-        #
-
+        instant_print
       else
         raise 'Error'
       end
 
     end
+    def onpush_print
+      @logger.log('ONPUSH PRINT mode...')
 
+      if MACHINE == 'raspberry'
+        onpush_print_raspi
+      else
+        @logger.log("ONPUSH PRINT... sorry you're on a machine without a GPIO port. Maybe you want to re-run with INSTANT PRINT mode? quitting... ")
+        exit
+      end
+    end
+
+    def onpush_print_raspi
+      # setup GPIO, get pin #4
+      io = WiringPi::GPIO.new do |gpio|
+        gpio.pin_mode(4, WiringPi::INPUT)
+      end
+
+      # wiringPi pin #4 eq Raspi pin 23
+      pin_state = io.digital_read(4) # Read from pin 1
+      puts pin_state
+
+      loop do
+        pin_state = io.digital_read(4) # Read from pin 1
+
+        # TODO: if run > 20.times check SMC for a new message
+        # Prnstn::SMC.new
+
+        if pin_state == 0
+          @logger.log("INSTANT PRINT... push! push!")
+          # TODO: smart calc of the latest x messages
+          messages = Message.limit(3)
+          if messages && messages.count > 0
+
+            @logger.log("INSTANT PRINT... printing #{messages.count} messages")
+
+            messages.each do |m|
+              printer.print(m)
+            end
+          end
+
+       else
+          puts "-----"
+       end
+       io.delay(600)
+      end
+    end
+
+    def instant_print
+      @logger.log('INSTANT PRINT mode...')
+
+      while !quit
+        @logger.log('INSTANT PRINT listening')
+        # TODO: check via Prnstn::SMC!!!!
+
+        #  print all messages since last run/loop!
+        messages = Message.where(printed: false)
+        # messages = Message.all
+
+        if messages && messages.count > 0
+          @logger.log("INSTANT PRINT... printing #{messages.count} messages")
+
+          messages.each do |m|
+            printer.print(m)
+          end
+
+        else
+          @logger.log("INSTANT PRINT... no new messages, nothing to print")
+        end
+        sleep(5)
+      end
+    end
 
   end
 end

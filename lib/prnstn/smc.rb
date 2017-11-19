@@ -117,13 +117,11 @@ module Prnstn
 
           # grab and store first image
           if mention.media[0]
-            ### TODO: type throws error:
-                  # && mention.media[0].type == "photo"
+            ### TODO: type throws error && mention.media[0].type == "photo"
             File.open("#{ASSET_TWITTER_PATH}/#{mention.id}-1.jpg", 'wb') do |fo|
               fo.write open(mention.media[0].media_url).read
             end
             Prnstn.log("Image saved!")
-
           end
           # remove image link form mention.text. link looks like http://t.co/SRCatB4oqd
           text = mention.text.sub "#{mention.media[0].url}", '++++++'
@@ -141,11 +139,8 @@ module Prnstn
           Message.create!(message)
           Prnstn.log("Search for message ID. New message saved!")
         end
-
       end
-
     end
-
   end
 
   class SMC_Statusnet
