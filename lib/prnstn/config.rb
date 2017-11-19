@@ -13,7 +13,8 @@ module Prnstn
   # configuration of the used social media plattform
   SMC_PLATTFORMS = ['twitter','gnusocial']
 
-  SMC_PLATTFORM = 'gnusocial'
+  SMC_PLATTFORM = 'twitter'
+  # SMC_PLATTFORM = 'gnusocial'
 
   # twitter api
   CONSUMER_KEY = ENV['CONSUMER_KEY']
