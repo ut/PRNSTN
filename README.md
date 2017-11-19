@@ -10,7 +10,7 @@ Tested with Ubuntu 16.04 and Raspian 4.1 (for Raspberry Pi)
 
 ## Prerequisites
 
-Ruby 2.x, Rubygems, CUPS 2.1.3, wiringpi, Rspec 3.5.0, ActiveRecord, SQLite
+Ruby 2.x, Rubygems, CUPS 2.1.3, Wiringpi, Rspec 3.5.0, ActiveRecord, SQLite
 
 ## Installation
 

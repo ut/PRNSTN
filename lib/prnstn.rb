@@ -66,31 +66,16 @@ module Prnstn
 
       else
         @logger.log('No token provided. Quitting...')
-        'No token provided. Quitting...!'
+        'No token provided...!'
       end
     end
 
     def run!
-      @logger.log('Start application...')
       prepare
+      @logger.log('Running application...')
 
       # 1 check printer status
       printer = Prnstn::Printer.new(@options)
-      printer.status
-      printer.test_print
-      printer.status
-
-      # 2 read msg from SMC
-      Prnstn::SMC.new
-      if options[:onpush_print]
-        # 3 queue calculations (storage)
-        # read_saved_queue or init new(empty) one
-        # remove old msg (msg.age  > 1.week)
-        # add newest msg from SMC
-      else
-        @logger.log('INSTANT PRINT... omitting queue calculations')
-      end
-
        # first run, print default image
       @logger.log('PRINT... printing a "hello world" message')
       job = ''
@@ -98,6 +83,16 @@ module Prnstn
         printer.test_print
       else
         @logger.log('PRINT... printing disabled, skipping (dry run mode)')
+      end
+
+      # 2 read msg from SMC
+      Prnstn::SMC.new
+      if options[:onpush_print]
+        # 3 queue calculations (storage)
+        # read_saved_queue or init new(empty) one
+        # remove old msg (msg.age  > 1.week) + add newest msg from SMC
+      else
+        @logger.log('INSTANT PRINT... omitting queue calculations')
       end
 
       # print modes
