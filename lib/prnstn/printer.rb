@@ -62,7 +62,7 @@ module Prnstn
           Prnstn.log("No job has been done")
         end
       else
-        Prnstn.log('TEST PRINT... printing disabled, skipping (dry run mode)')
+        Prnstn.log('TEST PRINT... printing disabled, skipping (dry run mode)'.yellow)
       end
 
     end
@@ -84,8 +84,8 @@ module Prnstn
           job_image = @printer.print_file(m.imageurl);
         end
       else
-        Prnstn.log('PRINT... printing disabled, skipping (dry run mode)')
-        Prnstn.log(data)
+        Prnstn.log('PRINT... printing disabled, skipping (dry run mode)'.yellow)
+        Prnstn.log(data.colorize(:color => :white, :background => :light_black))
       end
       m.printed = true
       m.save!

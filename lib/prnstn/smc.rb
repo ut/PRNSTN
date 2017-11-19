@@ -37,7 +37,7 @@ module Prnstn
     end
 
     def fetch_mentions
-      Prnstn.log('Got last 5 mentions from GNUSocial...')
+      Prnstn.log('SMC: Receive last 5 mentions from GNUSocial...')
       result = JSON.parse(open(GNUSOCIAL_MENTIONS_ENDPOINT).read)
       @last_mentions = result[0..4]
       # TODO: handle timeout
@@ -90,7 +90,7 @@ module Prnstn
         config.access_token_secret = ENV['ACCESS_TOKEN_SECRET']
       end
       if @client
-        Prnstn.log('Successfully authorized by Twitter API...')
+        Prnstn.log('SMC: Successfully authorized by Twitter API...')
       else
         Prnstn.log('Ups, there might be problem with your Twitter API credentials...'.red)
         exit
@@ -99,27 +99,27 @@ module Prnstn
     end
 
     def fetch_mentions
-      Prnstn.log('Got last 5 mentions from Twitter...')
-      @last_mentions = @client.mentions_timeline[0..4]
+      Prnstn.log("SMC: Receive latest #{MESSAGE_QUEUE} mentions from Twitter...")
+      @last_mentions = @client.mentions_timeline[0..MESSAGE_QUEUE]
       # TODO: handle timeout
 
       # @last_mentions = [{}]
       @last_mentions.each_with_index do |m,i|
-        Prnstn.log("--message #{i} #{m.id} #{m.created_at}")
+        Prnstn.log("-- Receiving message #{i} #{m.id} #{m.created_at}".colorize(:color => :white, :background => :light_black))
       end
     end
 
     def convert_mentions
-      Prnstn.log('TODO: Storing mentions into database...')
+      Prnstn.log('Comparing retrieved mentions with database...')
       # convert to common message format
       @last_mentions.each do |mention|
         cmp = Message.where(sid: mention.id).first
         if cmp
           # skip conversion if message is already known
-          Prnstn.log("Search for message ID. Found  #{cmp.sid}")
+          Prnstn.log("Searching for ID, found: #{cmp.sid}. Skipping...")
         else
           # convert message (and grab image)
-          Prnstn.log("Search for message ID. Its a new message #{mention.id}")
+          Prnstn.log("Searching for ID. Its a new message #{mention.id}. Storing in DB...")
 
           # grab and store first image
           if mention.media[0]
@@ -130,7 +130,9 @@ module Prnstn
             Prnstn.log("Image saved!")
           end
           # remove image link form mention.text. link looks like http://t.co/SRCatB4oqd
-          text = mention.text.sub "#{mention.media[0].url}", '++++++'
+          if mention.media[0] &&  mention.media[0].url
+            text = mention.text.sub "#{mention.media[0].url}", '++++++'
+          end
           body = "#{text}\n<<<<<< A message from #{mention.user.screen_name} >>>>>>>\n"
           # TODO: set date to the date the message has been created
           message = [
@@ -143,7 +145,7 @@ module Prnstn
             printed: false
           ]
           Message.create!(message)
-          Prnstn.log("Search for message ID. New message saved!")
+          Prnstn.log("New message saved...")
         end
       end
     end
