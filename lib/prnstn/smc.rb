@@ -115,37 +115,47 @@ module Prnstn
       @last_mentions.each do |mention|
         cmp = Message.where(sid: mention.id).first
         if cmp
-          # skip conversion if message is already known
           Prnstn.log("Searching for ID, found: #{cmp.sid}. Skipping...")
         else
           # convert message (and grab image)
           Prnstn.log("Searching for ID. Its a new message #{mention.id}. Storing in DB...")
-
-          # grab and store first image
-          if mention.media[0]
+          imagepath = ''
+          if mention.media[0] && mention.media[0].media_url
+            Prnstn.log("Image ref found: #{mention.media[0].media_url}")
             ### TODO: type throws error && mention.media[0].type == "photo"
-            File.open("#{ASSET_TWITTER_PATH}/#{mention.id}-1.jpg", 'wb') do |fo|
+            imagepath = "#{ASSET_TWITTER_PATH}/#{mention.id}-1.jpg"
+            File.open(imagepath, 'wb') do |fo|
               fo.write open(mention.media[0].media_url).read
             end
-            Prnstn.log("Image saved!")
+            Prnstn.log("Image saved as #{mention.id}-1.jpg".blue)
+            if File.exist? imagepath
+              Prnstn.log("Image is stored".blue)
+            else
+              Prnstn.log("Image could not be found".red)
+            end
           end
           # remove image link form mention.text. link looks like http://t.co/SRCatB4oqd
+          Prnstn.log("Text found #{mention.text}")
           if mention.media[0] &&  mention.media[0].url
             text = mention.text.sub "#{mention.media[0].url}", '++++++'
+          else
+            text = mention.text
           end
+          Prnstn.log("Text found #{text}")
           body = "#{text}\n<<<<<< A message from #{mention.user.screen_name} >>>>>>>\n"
           # TODO: set date to the date the message has been created
           message = [
             sid: mention.id,
             title: "m",
             body: body,
-            imageurl: "#{ASSET_TWITTER_PATH}/#{mention.id}-1.jpg",
+            imageurl: imagepath,
             date: Time.now,
             queued: false,
             printed: false
           ]
           Message.create!(message)
           Prnstn.log("New message saved...")
+          Prnstn.log("-------------------------")
         end
       end
     end

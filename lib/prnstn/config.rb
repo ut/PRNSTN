@@ -4,6 +4,8 @@ module Prnstn
   PRINT_MODE = 'all' # options: all|friends|self
   MESSAGE_QUEUE = 5
   MESSAGE_LIFETIME = '1w' # format?
+  INSTANT_PRINT_INTERVAL = 200
+
 
   # configuration of the remote host (control/monitoring instance) (TODO)
   REMOTE_HOST = ''

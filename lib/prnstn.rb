@@ -44,9 +44,8 @@ module Prnstn
       # TODO: implement $DEBUG and logfile warnings on/off
       @logger = Prnstn::Logger.new('log/prnstn.log')
       @logger.log('----------------')
-      @logger.log("#{Prnstn::NAME} #{Prnstn::VERSION} on a  machine")
+      @logger.log("#{Prnstn::NAME} #{Prnstn::VERSION} on a unknown machine")
       @logger.log('----------------')
-      @logger.log('Init application...')
       # if ENV['REMOTE_TOKEN']
         @logger.log('Prnstn is starting...')
         # @logger.log("Token provided: #{Prnstn::REMOTE_TOKEN}")
@@ -54,7 +53,6 @@ module Prnstn
           @logger.log("Resetting database".yellow)
           Message.destroy_all
         end
-
         if Message.all.count == 0
           initial_message = [
             sid: 1,
@@ -69,7 +67,6 @@ module Prnstn
         end
         @messages = Message.all
         @logger.log("Datebase lookup: #{@messages.count} messages stored")
-
       # else
         # TODO: @logger.log('No token provided'.yellow)
       # end
@@ -81,10 +78,9 @@ module Prnstn
 
       # 1 check printer status
       @printer = Prnstn::Printer.new(@options)
-       # first run, print default image
-      @logger.log('PRINT... printing a "hello world" message')
       job = ''
       if @options[:live_run]
+        @logger.log('PRINT... printing a "hello world" message')
         @printer.test_print
       else
         @logger.log('PRINT... printing disabled, skipping (dry run mode)'.yellow)
@@ -96,19 +92,11 @@ module Prnstn
         # 3 queue calculations (storage)
         # read_saved_queue or init new(empty) one
         # remove old msg (msg.age  > 1.week) + add newest msg from SMC
-      else
-        @logger.log('INSTANT PRINT... omitting queue calculations'.yellow)
-      end
-
-      # print modes
-      if options[:onpush_print]
         onpush_print
-      elsif options[:instant_print]
-        instant_print
       else
-        raise 'Error'
+        @logger.log('INSTANT PRINT (default)... omitting queue calculations'.yellow)
+        instant_print
       end
-
     end
     def onpush_print
       @logger.log('ONPUSH PRINT mode...')
@@ -142,14 +130,11 @@ module Prnstn
           # TODO: smart calc of the latest x messages
           messages = Message.limit(3)
           if messages && messages.count > 0
-
             @logger.log("ONPUSH PRINT... printing #{messages.count} messages")
-
             messages.each do |m|
               @printer.print(m)
             end
           end
-
        else
           puts "-----"
        end
@@ -170,16 +155,22 @@ module Prnstn
 
         if messages && messages.count > 0
           @logger.log("INSTANT PRINT... printing #{messages.count} messages".blue)
-          @logger.log("...................")
+          @logger.log("-------------------------")
           messages.each do |m|
             @printer.print(m)
           end
-          @logger.log("...................")
+          @logger.log("-------------------------")
 
         else
           @logger.log("INSTANT PRINT... no new messages, nothing to print".yellow)
         end
-        sleep(5)
+        @logger.log("INSTANT PRINT... sleep #{INSTANT_PRINT_INTERVAL} seconds")
+        sleepery = INSTANT_PRINT_INTERVAL/2
+        for i in 0..sleepery
+          sleep(2)
+          print "."
+        end
+        print "\n"
       end
     end
 
