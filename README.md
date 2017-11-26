@@ -20,7 +20,7 @@ Install CUPS
 $ sudo apt-get install libcups2 libcups2-dev
 ```
 
-You'll need a printer installed, at least and if you want print to file install CUPS-PDF
+You'll need a printer installed, at least install CUPS-PDF to have a print-to-file option:
 
 
 ```bash
@@ -46,7 +46,7 @@ Create a profile at your favorite GNU Social installation. Check the sourcecode 
 Edit lib/prnstn/config.rb:
 
 ```bash
-  GNUSOCIAL_ID = ''
+  GNUSOCIAL_ID = '...'
   GNUSOCIAL_MENTIONS_ENDPOINT  = 'https://your.gnusocial.installation/api/statuses/mentions/'+GNUSOCIAL_ID+'.json'
 
 ```
