@@ -147,11 +147,15 @@ module Prnstn
 
       while !quit
         @logger.log('INSTANT PRINT listening')
-        # TODO: check via Prnstn::SMC!!!!
+
+        # TODO: re-check via Prnstn::SMC!!!!
+        Prnstn::SMC.new
 
         #  print all messages since last run/loop!
         messages = Message.where(printed: false)
-        # messages = Message.all
+
+        # print last x messages (which comes first out of the API)
+        # messages = Message.first(3)
 
         if messages && messages.count > 0
           @logger.log("INSTANT PRINT... printing #{messages.count} messages".blue)

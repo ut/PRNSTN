@@ -142,7 +142,8 @@ module Prnstn
             text = mention.text
           end
           Prnstn.log("Text found #{text}")
-          body = "#{text}\n<<<<<< A message from #{mention.user.screen_name} >>>>>>>\n"
+          # body = "#{text}\n<<<<<< A message from #{mention.user.screen_name} >>>>>>>\n"
+          body = "#{text}\n\n"
           # TODO: set date to the date the message has been created
           message = [
             sid: mention.id,

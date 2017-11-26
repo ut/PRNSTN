@@ -65,9 +65,26 @@ module Prnstn
       end
     end
 
+    def print_header
+      Prnstn.log('Print header...')
+      job = @printer.print_file('assets/INTPRN_pause1_85x85mm.png');
+      if job && !job.nil? && job.status
+        Prnstn.log("Job status #{job.status}")
+      end
+    end
+
+    def print_pause
+      Prnstn.log('Print pause...')
+      job = @printer.print_file('assets/INTPRN_pause2_85x25mm.png');
+      if job && !job.nil? && job.status
+        Prnstn.log("Job status #{job.status}")
+      end
+    end
+
     def print(m)
       data = ''
-      data << "##{m.id} // #{m.sid} // #{m.date}\n"
+      # data << "##{m.id} // #{m.sid} // #{m.date}\n"
+      # data << "##{m.id} // #{m.sid} // #{m.date}\n"
 
       # TODO: parse body for links, get image, display.
       data << "#{m.body}\n"
@@ -75,15 +92,18 @@ module Prnstn
       if @options && @options[:live_run]
         Prnstn.log('PRINT... printing a job')
         job = @printer.print_data(data, 'text/plain')
+        Prnstn.log("PRINT... status: #{job.status}")
+
         if m.imageurl && m.imageurl.length > 0
           Prnstn.log("PRINT... file from #{m.imageurl}");
           if File.exist? m.imageurl
             job_image = @printer.print_file(m.imageurl);
+            Prnstn.log("PRINT... status: #{job_image.status}")
           else
             Prnstn.log('PRINT... file could not be found on disk!'.red)
           end
         end
-        Prnstn.log('PRINT... printed!')
+        Prnstn.log('PRINT... send to printer queue!')
         Prnstn.log(data.colorize(:color => :white, :background => :light_black))
         m.printed = true
         m.save!
