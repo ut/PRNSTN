@@ -75,7 +75,7 @@ module Prnstn
 
     def print_pause
       Prnstn.log('Print pause...')
-      job = @printer.print_file('assets/INTPRN_pause2_85x25mm.png');
+      job = @printer.print_file('assets/INTPRN_pause2_85x85mm.png');
       if job && !job.nil? && job.status
         Prnstn.log("Job status #{job.status}")
       end
