@@ -164,9 +164,11 @@ module Prnstn
             @printer.print(m)
           end
           @logger.log("-------------------------")
+          @printer.print_header
 
         else
           @logger.log("INSTANT PRINT... no new messages, nothing to print".yellow)
+          @printer.print_pause
         end
         @logger.log("INSTANT PRINT... sleep #{INSTANT_PRINT_INTERVAL} seconds")
         sleepery = INSTANT_PRINT_INTERVAL/2

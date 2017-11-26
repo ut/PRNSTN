@@ -135,13 +135,14 @@ module Prnstn
             end
           end
           # remove image link form mention.text. link looks like http://t.co/SRCatB4oqd
-          Prnstn.log("Text found #{mention.text}")
           if mention.media[0] &&  mention.media[0].url
-            text = mention.text.sub "#{mention.media[0].url}", '++++++'
+            text = mention.text.sub "#{mention.media[0].url}", ''
           else
             text = mention.text
           end
-          Prnstn.log("Text found #{text}")
+          text = text.sub "@INTPRN", ''
+          text = text.gsub!(/#{URI::regexp}/, '')
+          Prnstn.log("Text found and reduced: #{text}")
           # body = "#{text}\n<<<<<< A message from #{mention.user.screen_name} >>>>>>>\n"
           body = "#{text}\n\n"
           # TODO: set date to the date the message has been created
