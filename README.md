@@ -6,11 +6,13 @@ This program is under development, not ready for producive use. See TODO for a (
 
 See [INTPRN](https://ut.github.io/INTPRN/) for more informations about the project, this software is part of.
 
-Tested with Ubuntu 16.04 and Raspian 4.1 (for Raspberry Pi)
+Tested with Ubuntu 16.04 and Raspian 4.1 + Raspian 4.9 (for Raspberry Pi)
 
 ## Prerequisites
 
-Ruby 2.x, Rubygems, CUPS 2.1.3, Wiringpi, Rspec 3.5.0, ActiveRecord, SQLite
+Ruby 2.x, Rubygems, CUPS 2.1.3, Wiringpi (Binding for gpio), Rubgems, Rake, Rspec 3.5.0, ActiveRecord, SQLite3, GIT
+
+Raspian 4.9 has Ruby 2.3 and gpio 2.44 
 
 ## Installation
 
@@ -20,19 +22,67 @@ Install CUPS
 $ sudo apt-get install libcups2 libcups2-dev
 ```
 
-You'll need a printer installed, at least and if you want print to file install CUPS-PDF
-
+You'll need a printer installed, at least install CUPS-PDF to have a print-to-file option:
 
 ```bash
 $ sudo apt-get install cups-pdf
 ```
+(The files will saved at /home/your-username/PDF )
 
-(The files will saved at /home/USER/PDF )
+Install Wiringpi (only needed if you want install an external button, see below). See [Wiringpi.com](http://wiringpi.com/download-and-install/) for detailed instruction
 
-Install the needed gems:
+Install Bundler
+```bash
+  $ sudo gem install bundler
+```
+
+Get PRNTSTN code via Github (read-only)
 
 ```bash
+  $ git clone https://github.com/ut/PRNSTN.git
+```
+
+Install the needed gems with Bundler:
+
+```bash
+  $ cd PRNSTN
   $ bundle install
+```
+
+If you have trouble for the native extension FFI and get a message like...
+
+```bash
+  An error occurred while installing ffi (1.9.14), and Bundler cannot continue.
+````
+...install ruby-dev and then try to install ffi again
+
+```bash
+ $ sudo apt-get install ruby-dev
+ $ sudo gem install ffi -v '1.9.14'
+```
+
+If you have trouble installing the native extension Rainbow and get a message like
+
+```bash
+  An error occurred while installing rainbow (2.2.2), and Bundler cannot continue.
+```
+...install rake and then try to install rainbow again
+
+```bash
+ $ sudo gem install rake
+ $ sudo gem install ffi -v '1.9.14'
+```
+
+If you have trouble installing the native extension SQLite3 and get a message like
+
+```bash
+  An error occurred while installing sqlite3 (1.3.12), and Bundler cannot continue.
+```
+...install libsqlite3-dev and then try to install SQLite3 again
+
+```bash
+ $ sudo apt-get install libsqlite3-dev
+ $ sudo gem install  sqlite3 -v '1.3.12'
 ```
 
 ### Setup a social media plattform
@@ -46,7 +96,7 @@ Create a profile at your favorite GNU Social installation. Check the sourcecode 
 Edit lib/prnstn/config.rb:
 
 ```bash
-  GNUSOCIAL_ID = ''
+  GNUSOCIAL_ID = '...'
   GNUSOCIAL_MENTIONS_ENDPOINT  = 'https://your.gnusocial.installation/api/statuses/mentions/'+GNUSOCIAL_ID+'.json'
 
 ```
