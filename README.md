@@ -24,18 +24,19 @@ $ sudo apt-get install libcups2 libcups2-dev
 
 You'll need a printer installed, at least install CUPS-PDF to have a print-to-file option:
 
-
 ```bash
 $ sudo apt-get install cups-pdf
 ```
+(The files will saved at /home/your-username/PDF )
 
-(The files will saved at /home/USER/PDF )
+Install Wiringpi (only needed if you want install an external button, see below). See [Wiringpi.com](http://wiringpi.com/download-and-install/) for detailed instruction
 
-Install Wiringpi (only needed if you want install an external button, see below)
+Install Bundler
+```bash
+  $ sudo gem install bundler
+```
 
-See [Wiringpi.com](http://wiringpi.com/download-and-install/) for detailed instruction
-
-Install the needed gems:
+Install the needed gems with Bundler:
 
 ```bash
   $ bundle install
