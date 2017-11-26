@@ -6,11 +6,13 @@ This program is under development, not ready for producive use. See TODO for a (
 
 See [INTPRN](https://ut.github.io/INTPRN/) for more informations about the project, this software is part of.
 
-Tested with Ubuntu 16.04 and Raspian 4.1 (for Raspberry Pi)
+Tested with Ubuntu 16.04 and Raspian 4.1 + Raspian 4.9 (for Raspberry Pi)
 
 ## Prerequisites
 
-Ruby 2.x, Rubygems, CUPS 2.1.3, Wiringpi, Rspec 3.5.0, ActiveRecord, SQLite
+Ruby 2.x, Rubygems, CUPS 2.1.3, Wiringpi (Binding for gpio), Rspec 3.5.0, ActiveRecord, SQLite, GIT
+
+Raspian 4.9 has Ruby 2.3 and gpio 2.44 
 
 ## Installation
 
@@ -28,6 +30,10 @@ $ sudo apt-get install cups-pdf
 ```
 
 (The files will saved at /home/USER/PDF )
+
+Install Wiringpi (only needed if you want install an external button, see below)
+
+See [Wiringpi.com](http://wiringpi.com/download-and-install/) for detailed instruction
 
 Install the needed gems:
 
