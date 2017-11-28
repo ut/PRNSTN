@@ -134,11 +134,20 @@ module Prnstn
               Prnstn.log("Image could not be found".red)
             end
           end
-          # remove image link form mention.text. link looks like http://t.co/SRCatB4oqd
-          if mention.media[0] &&  mention.media[0].url
-            text = mention.text.sub "#{mention.media[0].url}", ''
+          # twitter tweet_mode=extended is needed to get full 280 chars
+          # see https://github.com/sferik/twitter/issues/880
+          # tweaked twitter gem v6.2.0, since this feature is not covered
+          # here: check if full_text is available
+          if mention.full_text.present?
+            text = mention.full_text
           else
             text = mention.text
+          end
+
+
+          # remove image link form mention.text. link looks like http://t.co/SRCatB4oqd
+          if mention.media[0] &&  mention.media[0].url
+            text = text.sub "#{mention.media[0].url}", ''
           end
           text = text.sub "@INTPRN", ''
           text = text.gsub!(/#{URI::regexp}/, '')
