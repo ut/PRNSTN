@@ -1,3 +1,19 @@
+GIT
+  remote: https://github.com/ut/twitter.git
+  revision: 6480e68b3216c5d937ae6f3a757bd52e6d86cafe
+  specs:
+    twitter (6.2.0)
+      addressable (~> 2.3)
+      buftok (~> 0.2.0)
+      equalizer (~> 0.0.11)
+      http (~> 3.0)
+      http-form_data (~> 2.0)
+      http_parser.rb (~> 0.6.0)
+      memoizable (~> 0.4.0)
+      multipart-post (~> 2.0)
+      naught (~> 1.0)
+      simple_oauth (~> 0.3.0)
+
 PATH
   remote: .
   specs:
@@ -83,17 +99,6 @@ GEM
     simple_oauth (0.3.1)
     sqlite3 (1.3.12)
     thread_safe (0.3.5)
-    twitter (6.2.0)
-      addressable (~> 2.3)
-      buftok (~> 0.2.0)
-      equalizer (~> 0.0.11)
-      http (~> 3.0)
-      http-form_data (~> 2.0)
-      http_parser.rb (~> 0.6.0)
-      memoizable (~> 0.4.0)
-      multipart-post (~> 2.0)
-      naught (~> 1.0)
-      simple_oauth (~> 0.3.0)
     tzinfo (1.2.2)
       thread_safe (~> 0.1)
     unf (0.1.4)
@@ -119,7 +124,7 @@ DEPENDENCIES
   rspec (~> 3.0)
   rubocop (~> 0.49.0)
   sqlite3
-  twitter (~> 6.2)
+  twitter (~> 6.2)!
   webmock (~> 2.3)
   wiringpi (~> 2.3)
 
