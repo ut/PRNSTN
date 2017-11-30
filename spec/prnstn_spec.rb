@@ -14,7 +14,8 @@ describe Prnstn::Main do
 
     options = {}
     pnr = Prnstn::Main.new(options)
-    expect(pnr.prepare).to be == "No token provided. Quitting...!"
+    # expect(pnr.prepare).to be == "No token provided. Quitting...!"
+    expect(pnr.prepare).to be == "PRNSTN prepared"
 
   end
 

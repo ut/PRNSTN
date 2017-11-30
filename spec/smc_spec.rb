@@ -14,7 +14,7 @@ describe Prnstn::SMC do
 
   it 'returns a list of twitter mentions' do
 
-    stubbed_mentions  = [{"created_at": "Wed Dec 31 12:00:00 +0000 2016", "id": 123456789012345678, "text": "Message One"},{"created_at": "Wed Dec 31 12:00:00 +0000 2016","id": 123456789012345679,"id_str": "542352552063692800","text": "Message Two"}]
+    stubbed_mentions  = [{"created_at" => "Wed Dec 31 12:00:00 +0000 2016", "id" =>123456789012345678, "text" => "Message One"},{"created_at" => "Wed Dec 31 12:00:00 +0000 2016","id" => 123456789012345679,"id_str" => "542352552063692800","text" => "Message Two"}]
 
     # TODO
 
@@ -22,7 +22,7 @@ describe Prnstn::SMC do
 
   it 'returns a list of gnusocial mentions' do
 
-    stubbed_mentions  = [{"created_at": "Wed Dec 31 12:00:00 +0000 2016", "id": 123456789012345678, "text": "Message One"},{"created_at": "Wed Dec 31 12:00:00 +0000 2016","id": 123456789012345679,"id_str": "542352552063692800","text": "Message Two"}]
+    stubbed_mentions  = [{"created_at" => "Wed Dec 31 12:00:00 +0000 2016", "id" => 123456789012345678, "text" => "Message One"},{"created_at" => "Wed Dec 31 12:00:00 +0000 2016","id" => 123456789012345679,"id_str" => "542352552063692800","text" => "Message Two"}]
 
     # TODO: own compartement
 

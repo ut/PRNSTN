@@ -70,6 +70,7 @@ module Prnstn
       # else
         # TODO: @logger.log('No token provided'.yellow)
       # end
+      return "PRNSTN prepared"
     end
 
     def run!
