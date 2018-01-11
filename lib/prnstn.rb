@@ -33,6 +33,7 @@ module Prnstn
       end
       if !options[:smc] || options[:smc] == true || !SMC_AVAILABLE_PLATTFORMS.include?(options[:smc])
         puts "Please select a social media plattform (#{SMC_AVAILABLE_PLATTFORMS.join(" or ")})"
+        puts "Example: ./bin/prnstn -s twitter -p 1"
         exit
       else
         puts "... selected service: #{options[:smc]}"
@@ -89,14 +90,14 @@ module Prnstn
       end
 
       # 2 read msg from SMC
-      Prnstn::SMC.new
+      Prnstn::SMC.new(@options)
       if options[:onpush_print]
         # 3 queue calculations (storage)
         # read_saved_queue or init new(empty) one
         # remove old msg (msg.age  > 1.week) + add newest msg from SMC
         onpush_print
       else
-        @logger.log('INSTANT PRINT (default)... omitting queue calculations'.yellow)
+        @logger.log('INSTANT PRINT (default)... omitting queue calculations'.green)
         instant_print
       end
     end
@@ -151,7 +152,7 @@ module Prnstn
         @logger.log('INSTANT PRINT listening')
 
         # TODO: re-check via Prnstn::SMC!!!!
-        Prnstn::SMC.new
+        Prnstn::SMC.new(@options)
 
         #  print all messages since last run/loop!
         messages = Message.where(printed: false)

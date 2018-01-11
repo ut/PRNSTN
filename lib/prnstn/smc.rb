@@ -1,10 +1,12 @@
 module Prnstn
   class SMC
 
-    def initialize
-      if SMC_PLATTFORM == 'twitter'
+    def initialize(options)
+
+      @options = options
+      if options[:smc] == 'twitter'
         Prnstn::SMC_Twitter.new.run!
-      elsif SMC_PLATTFORM == 'gnusocial'
+      elsif options[:smc] == 'gnusocial'
         Prnstn::SMC_GNUSocial.new.run!
       else
         raise
@@ -12,7 +14,7 @@ module Prnstn
     end
 
     def check
-      if SMC_PLATTFORM == 'twitter'
+      if options[:smc] == 'twitter'
         Prnstn::SMC_Twitter.new.run!
       end
 
