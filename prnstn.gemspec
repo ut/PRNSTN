@@ -10,7 +10,6 @@ Gem::Specification.new do |spec|
   spec.email         = ['ulf.treger@googlemail.com']
 
   spec.summary = 'Script to handle a printer and feed it w/social media content'
-  # spec.description   = 'TODO: Write a longer description or delete this line.'
   spec.homepage = 'https://ut.github.io/prnstn'
   spec.license = 'GNU GPL v3'
 
@@ -34,12 +33,10 @@ Gem::Specification.new do |spec|
   spec.executables  = spec.files.grep(%r{^bin/}) { |f| File.basename(f) }
   spec.require_paths = ['lib']
 
-  spec.add_development_dependency 'bundler', '~> 1.13'
+  spec.add_development_dependency 'bundler'
   spec.add_development_dependency 'rake', '~> 10.0'
-  spec.add_development_dependency 'rspec', '~> 3.0'
   spec.add_development_dependency 'cupsffi', '~> 0.1'
   spec.add_development_dependency 'rubocop', '~> 0.49.0'
-  spec.add_development_dependency 'webmock', '~> 2.3'
   spec.add_development_dependency 'wiringpi', '~> 2.3'
   # todo, remove 4.2 restriction if running at a ruby 2.2 system. since jessie provides 2.1 only
   spec.add_development_dependency 'activerecord', '~>4.2'
