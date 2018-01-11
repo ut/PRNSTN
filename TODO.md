@@ -5,12 +5,12 @@
 * pre-selection of printer --> done
 * ask for printer if multiple printer has been found
 * pre-selection of SMC
+* daemonize it (as in https://codeincomplete.com/posts/ruby-daemons/)
 
 # TODO
 
-## for  v0.3 release
+## for  v0.4 release
 
-* daemonize it
 * test web servives w/VCR
 
 add to message queue:

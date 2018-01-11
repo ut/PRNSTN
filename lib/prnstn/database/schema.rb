@@ -4,10 +4,9 @@ require 'active_record'
 
 puts "... script is running in #{$env} mode"
 
-
 ActiveRecord::Base.establish_connection(
   :adapter => 'sqlite3',
-  :database => "prnstn-#{$env}.db"
+  :database => File.expand_path("prnstn-#{$env}.db")
 )
 
 class Message < ActiveRecord::Base

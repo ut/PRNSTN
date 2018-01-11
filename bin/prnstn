@@ -37,8 +37,8 @@ op.separator ''
 
 op.separator 'Process options:'
 op.on('-D', '--daemonize',   daemonize_help) {  options[:daemonize] = true }
-# op.on('-p', '--pid PIDFILE', pidfile_help)   { |value| options[:pidfile]   = value }
-# op.on('-l', '--log LOGFILE', logfile_help)   { |value| options[:logfile]   = value }
+op.on('-P', '--pid PIDFILE', pidfile_help)   { |value| options[:pidfile]   = value }
+op.on('-L', '--log LOGFILE', logfile_help)   { |value| options[:logfile]   = value }
 op.separator ''
 
 op.separator 'Ruby options:'

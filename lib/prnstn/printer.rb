@@ -61,7 +61,7 @@ module Prnstn
     def test_print
       Prnstn.log('Print test...')
       # job = @printer.print_data('hello world', 'text/plain')
-      job = @printer.print_file('assets/INTPRN_hello_world.png');
+      job = @printer.print_file("#{@options[:assetsdir]}}/INTPRN_hello_world.png");
       if job && !job.nil? && job.status
         Prnstn.log("Job status #{job.status}")
       else
@@ -71,7 +71,7 @@ module Prnstn
 
     def print_header
       Prnstn.log('Print header...')
-      job = @printer.print_file('assets/INTPRN_pause1_85x85mm.png');
+      job = @printer.print_file("#{@options[:assetsdir]}/INTPRN_pause1_85x85mm.png");
       if job && !job.nil? && job.status
         Prnstn.log("Job status #{job.status}")
       end
@@ -79,7 +79,7 @@ module Prnstn
 
     def print_pause
       Prnstn.log('Print pause...')
-      job = @printer.print_file('assets/INTPRN_pause2_85x85mm.png');
+      job = @printer.print_file("#{@options[:assetsdir]}}/INTPRN_pause2_85x85mm.png");
       if job && !job.nil? && job.status
         Prnstn.log("Job status #{job.status}")
       end

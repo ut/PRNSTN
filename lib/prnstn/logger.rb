@@ -35,7 +35,7 @@ module Prnstn
     end
 
     def log(msg)
-      puts msg.to_s if $env == 'production'
+      # puts msg.to_s if $env == 'production'
       if @aio
         @log.write_nonblock("#{Time.now} || #{msg}\n")
       else
