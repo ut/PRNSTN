@@ -7,6 +7,17 @@ module Prnstn
   INSTANT_PRINT_INTERVAL = 200.freeze
 
 
+  # manually set the machine name (aka HOST system)
+  if ENV['MACHINE']
+    MACHINE = ENV['MACHINE'].freeze
+  elsif !ENV['_system_name'].nil?
+    MACHINE = "#{ENV['_system_name']} #{ENV['_system_version']}".freeze
+
+  else
+    MACHINE = 'an unnamend machine (use ENV[\'machine\'] to name it)'.freeze
+  end
+
+
   # configuration of the remote host (control/monitoring instance) (TODO)
   # REMOTE_HOST = ''
   # REMOTE_PORT = ''
@@ -26,14 +37,6 @@ module Prnstn
   # "User nicknames are unique, but they are not globally unique. Use the ID number instead."
   GNUSOCIAL_ID = '1829'.freeze
   GNUSOCIAL_MENTIONS_ENDPOINT  = 'https://schnackr.hamburg.freifunk.net/api/statuses/mentions/'+GNUSOCIAL_ID+'.json'.freeze
-  # manually set the machine name (aka HOST aka COMPUTER)
-  if ENV['MACHINE']
-    MACHINE = ENV['MACHINE'].freeze
-  elsif
-    MACHINE = "#{ENV['_system_name']} #{ENV['_system_version']}".freeze
-  else
-    MACHINE = 'unknown'.freeze
-  end
 
   # SMC specific
   ASSET_TWITTER_PATH = 'system/twitter'.freeze

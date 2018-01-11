@@ -1,11 +1,16 @@
-# TODO
+# DONE
 
-## v0.3
+## for v0.3 release
 
-* daemonize it
-* pre-selection of printer
+* pre-selection of printer --> done
 * ask for printer if multiple printer has been found
 * pre-selection of SMC
+
+# TODO
+
+## for  v0.3 release
+
+* daemonize it
 * test web servives w/VCR
 
 add to message queue:

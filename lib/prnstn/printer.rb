@@ -4,21 +4,25 @@ module Prnstn
     def initialize(options)
 
       @options = options
-
-
-      Prnstn.log('Finding a @printer...')
-      # get all printers
+      Prnstn.log('Looking for a @printer...')
       printers = CupsPrinter.get_all_printer_names
 
-      # prints.each do |p|
-      if printers.count > 0
-        # TODO: read param of @printer ID, otherwise try to find it via name regex
-        @printer = CupsPrinter.new(printers.first)
-        Prnstn.log("A @printer was found! *#{@printer.name}*")
-        @printer
+      if printers.count == 0
+        Prnstn.log('No printer available on this machine. Quitting...'.red)
+        exit
+      end
+      # TODO: read param of @printer ID, otherwise try to find it via name regex
+      if printers.count == 1
+        @printer = CupsPrinter.new(printers[0])
+        Prnstn.log("A printer was found! *#{@printer.name}*")
+      elsif options[:printer]
+        @printer = CupsPrinter.new(printers[options[:printer].to_i])
+        Prnstn.log("A printer was selected! Nr. #{options[:printer]} *#{@printer.name}*".green)
       else
-        Prnstn.log('No @printer available on this machine. Quitting...'.red)
-        # @printer = Array.new
+        Prnstn.log("Multiple printer was found! Please restart the application w/ ".red)
+        printers.each_with_index do |p,i|
+          Prnstn.log("#{i} #{p}".red)
+        end
         exit
       end
     end

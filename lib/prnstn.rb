@@ -1,9 +1,9 @@
 $env = 'production' unless $env
 
-require 'twitter'
-require 'date'
 require 'cupsffi'
+require 'date'
 require 'colorize'
+# require 'twitter'
 
 require 'prnstn/version'
 require 'prnstn/config'
@@ -28,15 +28,16 @@ module Prnstn
       if MACHINE == 'raspberry'
         require 'wiringpi'
       end
-
-      # default
       if !options[:onpush_print]
         options[:instant_print] = true
       end
-
+      if !options[:smc] || options[:smc] == true || !SMC_AVAILABLE_PLATTFORMS.include?(options[:smc])
+        puts "Please select a social media plattform (#{SMC_AVAILABLE_PLATTFORMS.join(" or ")})"
+        exit
+      else
+        puts "... selected service: #{options[:smc]}"
+      end
       @options = options
-
-
     end
 
 
@@ -44,7 +45,7 @@ module Prnstn
       # TODO: implement $DEBUG and logfile warnings on/off
       @logger = Prnstn::Logger.new('log/prnstn.log')
       @logger.log('----------------')
-      @logger.log("#{Prnstn::NAME} #{Prnstn::VERSION} on a unknown machine")
+      @logger.log("#{Prnstn::NAME} #{Prnstn::VERSION} on #{MACHINE}")
       @logger.log('----------------')
       # if ENV['REMOTE_TOKEN']
         @logger.log('Prnstn is starting...')
@@ -63,10 +64,10 @@ module Prnstn
             queued: true
           ]
           Message.create!(initial_message)
-          @logger.log("Datebase first run: Created initial message")
+          @logger.log("Datebase first run: Created initial message".green)
         end
         @messages = Message.all
-        @logger.log("Datebase lookup: #{@messages.count} messages stored")
+        @logger.log("Datebase: #{@messages.count} messages stored".green)
       # else
         # TODO: @logger.log('No token provided'.yellow)
       # end
@@ -75,7 +76,7 @@ module Prnstn
 
     def run!
       prepare
-      @logger.log('Running application...')
+      @logger.log('Running ...')
 
       # 1 check printer status
       @printer = Prnstn::Printer.new(@options)

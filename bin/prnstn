@@ -4,13 +4,15 @@ $LOAD_PATH.unshift "#{File.dirname(__FILE__)}/../lib"
 require 'optparse'
 
 options        = {}
-version        = '1.0.0'
+version        = '0.2.0'
 instant_print_help = 'print incoming messages instantly (default)'
 onpush_print_help = 'print message queue after push button event'
 reset_db_help = 'reset database and start from the beginning'
 
 liverun_help   = 'live run (run and really print something (default: false)'
 daemonize_help = 'run daemonized in the background (default: false)'
+smc_help       = 'select SMC (twitter or gnusocial)'
+printer_help       = 'select a printer by ID'
 pidfile_help   = 'the pid filename'
 logfile_help   = 'the log filename'
 include_help   = 'an additional $LOAD_PATH'
@@ -25,9 +27,11 @@ op.separator ''
 
 op.separator 'Task options:'
 op.on('-i', '--instant-print', instant_print_help) { options[:instant_print] = true }
-op.on('-p', '--onpush-print',  onpush_print_help) { options[:onpush_print] = true }
+op.on('-o', '--onpush-print',  onpush_print_help) { options[:onpush_print] = true }
 op.on('-l', '--live-run',      liverun_help ) { options[:live_run] = true }
 op.on('-r', '--reset-db',      reset_db_help ) { options[:reset_db] = true }
+op.on('-s', '--select-smc SMC',    smc_help ) { |value| options[:smc]   = value }
+op.on('-p', '--select-printer PRINTER',  printer_help ) { |value| options[:printer]   = value }
 
 op.separator ''
 
