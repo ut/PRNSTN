@@ -1,55 +1,54 @@
 #!/usr/bin/env ruby
-$LOAD_PATH.unshift '#{File.dirname(__FILE__)}/../lib'
+$LOAD_PATH.unshift "#{File.dirname(__FILE__)}/../lib"
 
 require 'optparse'
 
 options        = {}
-version        = "1.0.0"
-instant_print_help = "print incoming messages instantly (default)"
-onpush_print_help = "print message queue after push button event"
-reset_db_help = "reset database and start from the beginning"
+version        = '1.0.0'
+instant_print_help = 'print incoming messages instantly (default)'
+onpush_print_help = 'print message queue after push button event'
+reset_db_help = 'reset database and start from the beginning'
 
-liverun_help   = "live run (run and really print something (default: false)"
-daemonize_help = "run daemonized in the background (default: false)"
-pidfile_help   = "the pid filename"
-logfile_help   = "the log filename"
-include_help   = "an additional $LOAD_PATH"
-debug_help     = "set ruby global $DEBUG to true"
-warn_help      = "enable ruby warnings"
+liverun_help   = 'live run (run and really print something (default: false)'
+daemonize_help = 'run daemonized in the background (default: false)'
+pidfile_help   = 'the pid filename'
+logfile_help   = 'the log filename'
+include_help   = 'an additional $LOAD_PATH'
+debug_help     = 'set ruby global $DEBUG to true'
+warn_help      = 'enable ruby warnings'
 
 op = OptionParser.new
-op.banner =  "A Script to handle a printer and feed it w/social media content."
-op.separator ""
-op.separator "Usage: REMOTE_TOKEN=xxxx bin/prnstn [options]"
-op.separator ""
+op.banner =  'A Script to handle a printer and feed it w/social media content.'
+op.separator ''
+op.separator 'Usage: REMOTE_TOKEN=xxxx bin/prnstn [options]'
+op.separator ''
 
-op.separator "Task options:"
-op.on("-i", "--instant-print", instant_print_help) { options[:instant_print] = true  }
-op.on("-p", "--onpush-print",  onpush_print_help) { options[:onpush_print] = true  }
-op.on("-l", "--live-run",      liverun_help ) { options[:live_run] = true  }
-op.on("-r", "--reset-db",      reset_db_help ) { options[:reset_db] = true  }
+op.separator 'Task options:'
+op.on('-i', '--instant-print', instant_print_help) { options[:instant_print] = true }
+op.on('-p', '--onpush-print',  onpush_print_help) { options[:onpush_print] = true }
+op.on('-l', '--live-run',      liverun_help ) { options[:live_run] = true }
+op.on('-r', '--reset-db',      reset_db_help ) { options[:reset_db] = true }
 
-op.separator ""
+op.separator ''
 
-op.separator "Process options:"
-op.on("-D", "--daemonize",   daemonize_help) {  options[:daemonize] = true  }
-# op.on("-p", "--pid PIDFILE", pidfile_help)   { |value| options[:pidfile]   = value }
-# op.on("-l", "--log LOGFILE", logfile_help)   { |value| options[:logfile]   = value }
-op.separator ""
+op.separator 'Process options:'
+op.on('-D', '--daemonize',   daemonize_help) {  options[:daemonize] = true }
+# op.on('-p', '--pid PIDFILE', pidfile_help)   { |value| options[:pidfile]   = value }
+# op.on('-l', '--log LOGFILE', logfile_help)   { |value| options[:logfile]   = value }
+op.separator ''
 
-op.separator "Ruby options:"
-op.on("-I", "--include PATH", include_help) { |value| $LOAD_PATH.unshift(*value.split(":").map{|v| File.expand_path(v)}) }
-op.on(      "--debug",        debug_help)   { $DEBUG = true }
-op.on(      "--warn",         warn_help)    { $-w = true    }
-op.separator ""
+op.separator 'Ruby options:'
+op.on('-I', '--include PATH', include_help) { |value| $LOAD_PATH.unshift(*value.split(':').map {|v| File.expand_path(v)} ) }
+op.on(      '--debug',        debug_help)   { $DEBUG = true }
+op.on(      '--warn',         warn_help)    { $-w = true }
+op.separator ''
 
-op.separator "Common options:"
-op.on("-h", "--help")    { puts op.to_s; exit }
-op.on("-v", "--version") { puts version; exit }
-op.separator ""
+op.separator 'Common options:'
+op.on('-h', '--help')    { puts op.to_s; exit }
+op.on('-v', '--version') { puts version; exit }
+op.separator ''
 
 op.parse!(ARGV)
-
 
 require 'prnstn'
 Prnstn::Main.new(options).run!

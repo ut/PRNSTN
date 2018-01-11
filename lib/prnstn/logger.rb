@@ -25,8 +25,9 @@ module Prnstn
         @log.sync = true
         log("Logfile created at #{log}")
       end
-      if !RUBY_PLATFORM.match(/java|mswin/) && !(@log == STDOUT) &&
-        @log.respond_to?(:write_nonblock)
+      if  !RUBY_PLATFORM.match(/java|mswin/) &&
+          !(@log == STDOUT) &&
+          @log.respond_to?(:write_nonblock)
         @aio = true
       end
 
@@ -34,9 +35,7 @@ module Prnstn
     end
 
     def log(msg)
-      if $env == 'production'
-        puts "#{msg}"
-      end
+      puts msg.to_s && $env == 'production'
       if @aio
         @log.write_nonblock("#{Time.now} || #{msg}\n")
       else

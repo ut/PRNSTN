@@ -30,16 +30,15 @@ Gem::Specification.new do |spec|
   spec.files = ['lib/prnstn.rb']
 
   spec.bindir = 'bin'
-  spec.executables  = spec.files.grep(%r{^bin/}) { |f| File.basename(f) }
+  spec.executables = spec.files.grep(%r{^bin/}) { |f| File.basename(f) }
   spec.require_paths = ['lib']
 
+  spec.add_development_dependency 'activerecord', '~>5'
   spec.add_development_dependency 'bundler'
-  spec.add_development_dependency 'rake', '~> 10.0'
-  spec.add_development_dependency 'cupsffi', '~> 0.1'
-  spec.add_development_dependency 'rubocop', '~> 0.49.0'
-  spec.add_development_dependency 'wiringpi', '~> 2.3'
-  # todo, remove 4.2 restriction if running at a ruby 2.2 system. since jessie provides 2.1 only
-  spec.add_development_dependency 'activerecord', '~>4.2'
-  spec.add_development_dependency 'sqlite3'
   spec.add_development_dependency 'colorize'
+  spec.add_development_dependency 'cupsffi', '~> 0.1'
+  spec.add_development_dependency 'rake', '~> 12'
+  spec.add_development_dependency 'rubocop', '~> 0.5'
+  spec.add_development_dependency 'sqlite3'
+  spec.add_development_dependency 'wiringpi', '~> 2.3'
 end

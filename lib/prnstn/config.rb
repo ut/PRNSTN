@@ -2,21 +2,19 @@ module Prnstn
   NAME = 'PRNSTN'
   # defaults
   PRINT_MODE = 'all' # options: all|friends|self
-  MESSAGE_QUEUE = 20
-  MESSAGE_LIFETIME = '1w' # format?
-  INSTANT_PRINT_INTERVAL = 200
+  MESSAGE_QUEUE = 20.freeze
+  MESSAGE_LIFETIME = '1w'.freeze # format?
+  INSTANT_PRINT_INTERVAL = 200.freeze
 
 
   # configuration of the remote host (control/monitoring instance) (TODO)
-  REMOTE_HOST = ''
-  REMOTE_PORT = ''
+  # REMOTE_HOST = ''
+  # REMOTE_PORT = ''
   REMOTE_TOKEN = ENV['REMOTE_TOKEN']
 
   # configuration of the used social media plattform
-  SMC_PLATTFORMS = ['twitter','gnusocial']
-
+  SMC_AVAILABLE_PLATTFORMS =  %w[twitter gnusocial]
   SMC_PLATTFORM = 'twitter'
-  # SMC_PLATTFORM = 'gnusocial'
 
   # twitter api
   CONSUMER_KEY = ENV['CONSUMER_KEY']
@@ -26,32 +24,21 @@ module Prnstn
 
   # gnusocial api, https://gnusocial.net/doc/twitterapi
   # "User nicknames are unique, but they are not globally unique. Use the ID number instead."
-
-  GNUSOCIAL_ID = '1829'
-  GNUSOCIAL_MENTIONS_ENDPOINT  = 'https://schnackr.hamburg.freifunk.net/api/statuses/mentions/'+GNUSOCIAL_ID+'.json'
-
-
-
-
-
-
+  GNUSOCIAL_ID = '1829'.freeze
+  GNUSOCIAL_MENTIONS_ENDPOINT  = 'https://schnackr.hamburg.freifunk.net/api/statuses/mentions/'+GNUSOCIAL_ID+'.json'.freeze
   # manually set the machine name (aka HOST aka COMPUTER)
   if ENV['MACHINE']
-    MACHINE = ENV['MACHINE']
+    MACHINE = ENV['MACHINE'].freeze
   elsif
-    MACHINE = "#{ENV['_system_name']} #{ENV['_system_version']}"
+    MACHINE = "#{ENV['_system_name']} #{ENV['_system_version']}".freeze
   else
-    MACHINE = 'unknown'
+    MACHINE = 'unknown'.freeze
   end
 
   # SMC specific
-  ASSET_TWITTER_PATH = 'system/twitter'
-
+  ASSET_TWITTER_PATH = 'system/twitter'.freeze
   require 'fileutils'
-
-  dirname = File.dirname(ASSET_TWITTER_PATH)
   unless File.directory?(ASSET_TWITTER_PATH)
     FileUtils.mkdir_p(ASSET_TWITTER_PATH)
   end
-
 end
