@@ -38,7 +38,7 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'colorize'
   spec.add_development_dependency 'cupsffi', '~> 0.1'
   spec.add_development_dependency 'rake', '~> 12'
-  spec.add_development_dependency 'rubocop', '~> 0.5'
+  spec.add_development_dependency 'rubocop'
   spec.add_development_dependency 'sqlite3'
   spec.add_development_dependency 'wiringpi', '~> 2.3'
 end

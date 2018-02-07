@@ -36,7 +36,7 @@ GEM
     addressable (2.5.2)
       public_suffix (>= 2.0.2, < 4.0)
     arel (8.0.0)
-    ast (2.3.0)
+    ast (2.4.0)
     buftok (0.2.0)
     colorize (0.8.1)
     concurrent-ruby (1.0.5)
@@ -122,7 +122,7 @@ DEPENDENCIES
   cupsffi (~> 0.1)
   rake (~> 12)
   rspec
-  rubocop (~> 0.5)
+  rubocop
   sqlite3
   twitter (~> 6.2)!
   vcr
