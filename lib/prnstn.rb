@@ -44,6 +44,13 @@ module Prnstn
 
       @options = options
 
+      # check env, set
+      puts $DEBUG
+      if $DEBUG
+        print "debug mode enabled"
+        $env = 'debug'
+      end
+
       # daemonization will change CWD so expand relative paths now
       if logfile?
         options[:logfile] = File.expand_path(logfile)
@@ -59,8 +66,6 @@ module Prnstn
 
       options[:assetsdir] = File.expand_path('assets')
 
-      puts "run!"
-      run!
 
     end
 
@@ -149,7 +154,7 @@ module Prnstn
     end
 
     def prepare
-      puts "prepare"
+      puts "... switching to logger"
       # TODO: implement $DEBUG and logfile warnings on/off
       @logger = Prnstn::Logger.new(@options[:logfile])
       @logger.log('----------------')

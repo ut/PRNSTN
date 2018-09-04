@@ -17,7 +17,7 @@ tags_help       = 'set a hashtag to search (instead of mentions)'
 pidfile_help   = 'the pid filename'
 logfile_help   = 'the log filename'
 include_help   = 'an additional $LOAD_PATH'
-debug_help     = 'set ruby global $DEBUG to true'
+debug_help     = 'set ruby global $DEBUG to true (and prints log to STDOUT)'
 warn_help      = 'enable ruby warnings'
 
 op = OptionParser.new

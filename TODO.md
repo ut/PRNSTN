@@ -4,8 +4,8 @@
 
 * pre-selection of printer --> done
 * ask for printer if multiple printer has been found
-* pre-selection of SMC
-* daemonize it (as in https://codeincomplete.com/posts/ruby-daemons/)
+* pre-selection of SMC --> done
+* daemonize it (as in https://codeincomplete.com/posts/ruby-daemons/) --> needs adjusting
 
 # TODO
 
