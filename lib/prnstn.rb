@@ -44,8 +44,6 @@ module Prnstn
 
       @options = options
 
-      # check env, set
-      puts $DEBUG
       if $DEBUG
         print "debug mode enabled"
         $env = 'debug'
