@@ -9,6 +9,11 @@
 
 # TODO
 
+## for 0.35 solidaritycity release
+
+* add search for hashtag function
+* dualmode instant print (mentions/hashtags) and onpush print (infosheet)
+
 ## for  v0.4 release
 
 * test web servives w/VCR
@@ -24,14 +29,12 @@ robust error handling functions
 * no logfile writeable
 * no printer
 * social media api not reachable
-* remote CTRLSRV not reachable
 
 ## v0.4: talk to a remote instance
 
 a json/rest push service to talk w/a control instance (CTRLSRV)
-* auth via JWT (jso web token)
+* auth via JWT (json web token)
 * send status + stats
-
 
 receive config updates:
 * print mode: all|friends|self (default: all)
@@ -39,3 +42,5 @@ receive config updates:
 * msg lifetime (default: 1 week)
 
 ## not yet allocated
+
+...

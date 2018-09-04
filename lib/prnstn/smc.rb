@@ -5,7 +5,7 @@ module Prnstn
 
       @options = options
       if options[:smc] == 'twitter'
-        Prnstn::SMC_Twitter.new.run!
+        Prnstn::SMC_Twitter.new.run!(options)
       elsif options[:smc] == 'gnusocial'
         Prnstn::SMC_GNUSocial.new.run!
       else
@@ -13,7 +13,7 @@ module Prnstn
       end
     end
 
-    def check
+    def check(options)
       if options[:smc] == 'twitter'
         Prnstn::SMC_Twitter.new.run!
       end
@@ -34,18 +34,18 @@ module Prnstn
     def run!
 
       fetch_mentions
-      # convert_mentions if @last_mentions
+      # convert_mentions if @last_tweets
 
     end
 
     def fetch_mentions
       Prnstn.log('SMC: Receive last 5 mentions from GNUSocial...')
       result = JSON.parse(open(GNUSOCIAL_MENTIONS_ENDPOINT).read)
-      @last_mentions = result[0..4]
+      @last_tweets = result[0..4]
       # TODO: handle timeout
 
-      # @last_mentions = [{}]
-      @last_mentions.each_with_index do |m,i|
+      # @last_tweets = [{}]
+      @last_tweets.each_with_index do |m,i|
         Prnstn.log("--message #{i} #{m['id']} #{m['created_at']}")
       end
     end
@@ -70,18 +70,25 @@ module Prnstn
     require 'open-uri'
 
 
-    def initialize(*)
+    def initialize
 
     end
 
-    def run!
+    def run!(options)
+
+      @options = options
 
       if !ENV['CONSUMER_KEY']
         Prnstn.log("No Twitter consumer_key given. Quitting... ".red)
         exit
       end
-      fetch_mentions if auth
-      convert_mentions if @last_mentions
+
+      if @options[:hashtag]
+        fetch_hashtags if auth
+      else
+        fetch_mentions if auth
+      end
+      convert_mentions if @last_tweets
     end
 
     def auth
@@ -102,19 +109,31 @@ module Prnstn
 
     def fetch_mentions
       Prnstn.log("SMC: Receive latest #{MESSAGE_QUEUE} mentions from Twitter...")
-      @last_mentions = @client.mentions_timeline[0..MESSAGE_QUEUE]
+      @last_tweets = @client.mentions_timeline[0..MESSAGE_QUEUE]
       # TODO: handle timeout
 
-      # @last_mentions = [{}]
-      @last_mentions.each_with_index do |m,i|
+      # @last_tweets = [{}]
+      @last_tweets.each_with_index do |m,i|
         Prnstn.log("-- Receiving message #{i} #{m.id} #{m.created_at}".colorize(:color => :white, :background => :light_black))
       end
     end
 
+    def fetch_hashtags
+      Prnstn.log("SMC: Receive latest #{MESSAGE_QUEUE} hashtags from Twitter...")
+      @last_tweets = @client.search("#solidaritycity -rt")
+      # TODO: handle timeout
+
+      # @last_tweets = [{}]
+      @last_tweets.each_with_index do |m,i|
+        Prnstn.log("-- Receiving message #{i} #{m.id} #{m.created_at}".colorize(:color => :white, :background => :light_black))
+      end
+    end
+
+
     def convert_mentions
       Prnstn.log('Comparing retrieved mentions with database...')
       # convert to common message format
-      @last_mentions.each do |mention|
+      @last_tweets.each do |mention|
         cmp = Message.where(sid: mention.id).first
         if cmp
           Prnstn.log("Searching for ID, found: #{cmp.sid}. Skipping...")

@@ -13,6 +13,7 @@ liverun_help   = 'live run (run and really print something (default: false)'
 daemonize_help = 'run daemonized in the background (default: false)'
 smc_help       = 'select SMC (twitter or gnusocial)'
 printer_help       = 'select a printer by ID'
+tags_help       = 'set a hashtag to search (instead of mentions)'
 pidfile_help   = 'the pid filename'
 logfile_help   = 'the log filename'
 include_help   = 'an additional $LOAD_PATH'
@@ -32,6 +33,7 @@ op.on('-l', '--live-run',      liverun_help ) { options[:live_run] = true }
 op.on('-r', '--reset-db',      reset_db_help ) { options[:reset_db] = true }
 op.on('-s', '--select-smc SMC',    smc_help ) { |value| options[:smc]   = value }
 op.on('-p', '--select-printer PRINTER',  printer_help ) { |value| options[:printer]   = value }
+op.on('-t', '--search-tags #HASHTAG',  tags_help ) { |value| options[:hashtag]   = value }
 
 op.separator ''
 

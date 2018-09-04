@@ -59,6 +59,9 @@ module Prnstn
 
       options[:assetsdir] = File.expand_path('assets')
 
+      puts "run!"
+      run!
+
     end
 
 
@@ -146,6 +149,7 @@ module Prnstn
     end
 
     def prepare
+      puts "prepare"
       # TODO: implement $DEBUG and logfile warnings on/off
       @logger = Prnstn::Logger.new(@options[:logfile])
       @logger.log('----------------')
@@ -180,14 +184,16 @@ module Prnstn
 
     def run!
 
-      check_pid
-      daemonize if daemonize?
-      write_pid
-      trap_signals
+      puts "running"
+      # quit = 'false'
+      # check_pid
+      # daemonize if daemonize?
+      # write_pid
+      # trap_signals
 
       prepare
 
-      while !quit
+      # while !quit
         @logger.log('Running ...')
 
         # 1 check printer status
@@ -211,7 +217,7 @@ module Prnstn
           @logger.log('INSTANT PRINT (default)... omitting queue calculations'.green)
           instant_print
         end
-      end
+      # end
     end
     def onpush_print
       @logger.log('ONPUSH PRINT mode...')
