@@ -1,6 +1,6 @@
 [![Maintainability](https://api.codeclimate.com/v1/badges/fe912f77779b32b49d84/maintainability)](https://codeclimate.com/github/ut/PRNSTN/maintainability)
 
-# Prnstn
+# PRNSTN
 
 Script to handle a printer and feed it w/social media content from any linux computer.
 
@@ -116,6 +116,8 @@ Create a Twitter application via [apps.twitter.com](https://apps.twitter.com/) a
 
 ## Usage
 
+### From commandline
+
 ```bash
   $ ./bin/prnstn
 ```
@@ -129,6 +131,34 @@ Show all parameters:
 ```
 
 
+### Start automatically
+
+At /etc/rd.local add the following line
+
+```bash
+  sudo -u USER -i /home/USER/start_prnstn.sh
+```
+
+At home directory, create start_prnstn.sh
+
+```bash
+  $ nano /home/USER/start_prnstn.sh
+```
+and add the following lines
+
+```bash
+#!/bin/bash
+#
+# Start PRNSTN
+cd /home/USER/PRNSTN/
+export CONSUMER_KEY="...."
+export CONSUMER_SECRET="...."
+export ACCESS_TOKEN="...."
+export ACCESS_TOKEN_SECRET="...."
+./bin/prnstn -s twitter -p 1 -D
+```
+
+Another approach would be defining a startup script at systemd
 
 ### Raspberry Pi
 
