@@ -1,4 +1,4 @@
-[![Maintainability](https://api.codeclimate.com/v1/badges/fe912f77779b32b49d84/maintainability)](https://codeclimate.com/github/ut/PRNSTN/maintainability) [![Dependency Status](https://beta.gemnasium.com/badges/github.com/ut/PRNSTN.svg)](https://beta.gemnasium.com/projects/github.com/ut/PRNSTN)
+[![Maintainability](https://api.codeclimate.com/v1/badges/fe912f77779b32b49d84/maintainability)](https://codeclimate.com/github/ut/PRNSTN/maintainability)
 
 # Prnstn
 
