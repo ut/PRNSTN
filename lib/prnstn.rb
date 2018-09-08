@@ -160,7 +160,6 @@ module Prnstn
 
     def prepare
       # puts "... switching to logger"
-      # TODO: implement $DEBUG and logfile warnings on/off
       @logger = Prnstn::Logger.new(@options[:logfile])
       @logger.log('----------------')
       @logger.log("#{Prnstn::NAME} #{Prnstn::VERSION} on #{MACHINE}")
@@ -185,6 +184,9 @@ module Prnstn
           @logger.log("Datebase first run: Created initial message".green)
         end
         @messages = Message.all
+
+        # TODO: print startup info message
+
         @logger.log("Datebase: #{@messages.count} messages stored".green)
       # else
         # TODO: @logger.log('No token provided'.yellow)
@@ -309,9 +311,9 @@ module Prnstn
         sleepery = INSTANT_PRINT_INTERVAL/2
         for i in 0..sleepery
           sleep(2)
-          @logger.log("#{INSTANT_PRINT_INTERVAL-(i*2)} seconds")
+          puts "#{INSTANT_PRINT_INTERVAL-(i*2)} seconds" if $DEBUG
 
-          # TODO: watch for a button press
+          # TODO: watch for a button press!!!
         end
         @logger.log("\n")
       end

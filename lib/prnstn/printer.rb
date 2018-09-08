@@ -90,7 +90,6 @@ module Prnstn
     def print(m)
       data = ''
       # data << "##{m.id} // #{m.sid} // #{m.date}\n"
-      # data << "##{m.id} // #{m.sid} // #{m.date}\n"
 
       # TODO: parse body for links, get image, display.
       data << "#{m.body}\n"
