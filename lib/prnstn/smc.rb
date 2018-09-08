@@ -80,6 +80,7 @@ module Prnstn
 
       if !ENV['CONSUMER_KEY']
         Prnstn.log("No Twitter consumer_key given. Quitting... ".red)
+        print "No Twitter consumer_key given. Quitting... "
         exit
       end
 
@@ -103,6 +104,7 @@ module Prnstn
         Prnstn.log('SMC: Successfully authorized by Twitter API...')
       else
         Prnstn.log('Ups, there might be problem with your Twitter API credentials...'.red)
+        print 'Ups, there might be problem with your Twitter API credentials...'
         exit
       end
       true

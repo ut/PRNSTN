@@ -36,9 +36,10 @@ module Prnstn
       if !options[:smc] || options[:smc] == true || !SMC_AVAILABLE_PLATTFORMS.include?(options[:smc])
         puts "Please select a social media plattform (#{SMC_AVAILABLE_PLATTFORMS.join(" or ")})"
         puts "Example: ./bin/prnstn -s twitter -p 1"
+        puts "Example, deamonized: ./bin/prnstn -s twitter -p 1 -D"
         exit
       else
-        puts "... selected service: #{options[:smc]}"
+        puts "... selected service: #{options[:smc]}" if $DEBUG
       end
 
 
@@ -46,6 +47,12 @@ module Prnstn
 
       if $DEBUG
         print "debug mode enabled"
+        $env = 'debug'
+      end
+
+      if daemonize?
+        $env = 'production'
+      else
         $env = 'debug'
       end
 
@@ -104,7 +111,7 @@ module Prnstn
       if pidfile?
         case pid_status(pidfile)
         when :running, :not_owned
-          puts "A server is already running. Check #{pidfile}"
+          puts "PRNSTN is already running. Check #{pidfile}"
           exit(1)
         when :dead
           File.delete(pidfile)
@@ -152,7 +159,7 @@ module Prnstn
     end
 
     def prepare
-      puts "... switching to logger"
+      # puts "... switching to logger"
       # TODO: implement $DEBUG and logfile warnings on/off
       @logger = Prnstn::Logger.new(@options[:logfile])
       @logger.log('----------------')
@@ -187,17 +194,20 @@ module Prnstn
 
     def run!
 
-      puts "running"
-      # quit = 'false'
-      # check_pid
-      # daemonize if daemonize?
-      # write_pid
-      # trap_signals
-
       prepare
 
-      # while !quit
-        @logger.log('Running ...')
+
+      check_pid
+      if daemonize?
+        @logger.log('RUN... daemonized!')
+        daemonize
+      end
+      write_pid
+      trap_signals
+
+
+      while !quit
+        @logger.log('RUN...')
 
         # 1 check printer status
         @printer = Prnstn::Printer.new(@options)
@@ -220,7 +230,7 @@ module Prnstn
           @logger.log('INSTANT PRINT (default)... omitting queue calculations'.green)
           instant_print
         end
-      # end
+      end
     end
     def onpush_print
       @logger.log('ONPUSH PRINT mode...')
@@ -229,6 +239,7 @@ module Prnstn
         onpush_print_raspi
       else
         @logger.log("ONPUSH PRINT... sorry you're on a machine without a GPIO port. Maybe you want to re-run with INSTANT PRINT mode? quitting... ".red)
+        print "ONPUSH PRINT... sorry you're on a machine without a GPIO port. Maybe you want to re-run with INSTANT PRINT mode? quitting... "
         exit
       end
     end
@@ -298,9 +309,11 @@ module Prnstn
         sleepery = INSTANT_PRINT_INTERVAL/2
         for i in 0..sleepery
           sleep(2)
-          print "."
+          @logger.log("#{INSTANT_PRINT_INTERVAL-(i*2)} seconds")
+
+          # TODO: watch for a button press
         end
-        print "\n"
+        @logger.log("\n")
       end
     end
 

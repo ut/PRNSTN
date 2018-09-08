@@ -2,7 +2,7 @@ require 'sqlite3'
 require 'active_record'
 
 
-puts "... script is running in #{$env} mode"
+puts "... script is running in #{$env} mode" if $DEBUG
 
 ActiveRecord::Base.establish_connection(
   :adapter => 'sqlite3',
@@ -18,9 +18,9 @@ end
 
 ActiveRecord::Schema.define do
   if ActiveRecord::Base.connection.data_sources.include? 'messages'
-    puts '... database and table "messages" already set'
+    puts '... database and table "messages" already set' if $DEBUG
   else
-    puts '... database available, creating table "messages"'
+    puts '... database available, creating table "messages"' if $DEBUG
     create_table :messages do |table|
       table.column :sid,      :string
       table.column :title,    :string

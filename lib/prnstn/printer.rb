@@ -9,6 +9,7 @@ module Prnstn
 
       if printers.count == 0
         Prnstn.log('No printer available on this machine. Quitting...'.red)
+        print 'No printer available on this machine. Quitting...'
         exit
       end
       # TODO: read param of @printer ID, otherwise try to find it via name regex
@@ -23,6 +24,7 @@ module Prnstn
         printers.each_with_index do |p,i|
           Prnstn.log("#{i} #{p}".red)
         end
+        print "Multiple printer was found! Please restart the application"
         exit
       end
     end
@@ -79,7 +81,7 @@ module Prnstn
 
     def print_pause
       Prnstn.log('Print pause...')
-      job = @printer.print_file("#{@options[:assetsdir]}}/INTPRN_pause2_85x85mm.png");
+      job = @printer.print_file("#{@options[:assetsdir]}/INTPRN_pause2_85x85mm.png");
       if job && !job.nil? && job.status
         Prnstn.log("Job status #{job.status}")
       end
