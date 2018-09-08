@@ -3,16 +3,18 @@
 ## for v0.3 release
 
 * pre-selection of printer --> done
-* ask for printer if multiple printer has been found
+* ask for printer if multiple printer has been found --> done
 * pre-selection of SMC --> done
-* daemonize it (as in https://codeincomplete.com/posts/ruby-daemons/) --> needs adjusting
+* daemonize it (as in https://codeincomplete.com/posts/ruby-daemons/) --> done
 
-# TODO
+# IN PROGRESS
 
 ## for 0.35 solidaritycity release
 
-* add search for hashtag function
+* add search for hashtag function --> done
 * dualmode instant print (mentions/hashtags) and onpush print (infosheet)
+
+# TODO
 
 ## for  v0.4 release
 

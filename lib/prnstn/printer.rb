@@ -24,7 +24,7 @@ module Prnstn
         printers.each_with_index do |p,i|
           Prnstn.log("#{i} #{p}".red)
         end
-        print "Multiple printer was found! Please restart the application"
+        puts "Multiple printer was found! Please restart the application and define a printer w/-p NUMBER_OF_PRINTER (Check logfile for a list of available printers"
         exit
       end
     end
