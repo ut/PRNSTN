@@ -165,7 +165,11 @@ module Prnstn
       @logger.log("#{Prnstn::NAME} #{Prnstn::VERSION} on #{MACHINE}")
       @logger.log('----------------')
       # if ENV['REMOTE_TOKEN']
-        @logger.log('Prnstn is starting...')
+        if $DEBUG
+          @logger.log('Prnstn is starting (in DEBUG mode...')
+        else
+          @logger.log('Prnstn is starting...')
+        end
         # @logger.log("Token provided: #{Prnstn::REMOTE_TOKEN}")
         if @options[:reset_db]
           @logger.log("Resetting database".yellow)

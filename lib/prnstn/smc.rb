@@ -122,8 +122,10 @@ module Prnstn
     end
 
     def fetch_hashtags
-      Prnstn.log("SMC: Receive latest #{MESSAGE_QUEUE} hashtags from Twitter...")
-      @last_tweets = @client.search("#solidaritycity -rt")
+      Prnstn.log("SMC: Receive latest #{MESSAGE_QUEUE} message w/hashtag #{@options[:hashtag]} from Twitter...")
+      @last_tweets = @client.search("#{@options[:hashtag]} -rt").take(MESSAGE_QUEUE)
+      puts @last_tweets.count
+
       # TODO: handle timeout
 
       # @last_tweets = [{}]
