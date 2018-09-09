@@ -14,7 +14,7 @@ Tested with Ubuntu 16.04 and Raspian 4.1 + Raspian 4.9 (for Raspberry Pi)
 
 Ruby 2.x, Rubygems, CUPS 2.1.3, Wiringpi (Binding for gpio), Rubgems, Rake, Rspec 3.5.0, ActiveRecord, SQLite3, GIT
 
-Raspian 4.9 has Ruby 2.3 and gpio 2.44 
+Raspian 4.9 has Ruby 2.3 and gpio 2.44
 
 ## Installation
 
@@ -166,6 +166,21 @@ On Raspberry Pi, an external button can be used to print latest messages. See [I
 
 Since we use Raspberry Pi GPIO for that, we need to run this script as root!
 
+### Troubleshooting
+
+If the following error ocurrs:
+
+```
+  `require': cannot load such file -- twitter (LoadError)
+```
+
+then install the cli version of the Twitter gem
+
+```
+  $ sudo gem install t
+```
+
+
 ## Development
 
 ### Contributing
@@ -174,7 +189,7 @@ Bug reports and pull requests are welcome on GitHub at https://github.com/ut/prn
 
 ## Credits & License
 
-A project by Ulf Treger <ulf.treger@googlemail.com>
+A project by Ulf Treger <ulf.treger@googlemail.com> as part of
 
 Running via CLI and as a daemonized script based on a concept by Jake Gordon at [Daemonizing Ruby Processes](http://codeincomplete.com/posts/ruby-daemons/)
 

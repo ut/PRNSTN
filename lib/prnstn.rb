@@ -3,7 +3,6 @@ $env = 'production' unless $env
 require 'cupsffi'
 require 'date'
 require 'colorize'
-# require 'twitter'
 
 require 'prnstn/version'
 require 'prnstn/config'
