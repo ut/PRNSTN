@@ -17,7 +17,7 @@ GIT
 PATH
   remote: .
   specs:
-    PRNSTN (0.2.0)
+    PRNSTN (0.3.1)
 
 GEM
   remote: https://rubygems.org/
@@ -127,7 +127,7 @@ DEPENDENCIES
   twitter (~> 6.2)!
   vcr
   webmock
-  wiringpi (~> 2.3)
+  wiringpi
 
 BUNDLED WITH
    1.16.1

@@ -73,7 +73,8 @@ module Prnstn
 
     def print_header
       Prnstn.log('Print header...')
-      job = @printer.print_file("#{@options[:assetsdir]}/INTPRN_pause1_85x85mm.png");
+      # job = @printer.print_file("#{@options[:assetsdir]}/INTPRN_pause1_85x85mm.png");
+      job = @printer.print_file("#{@options[:assetsdir]}/INTPRN_solidaritycity_pattern_85x170mm.png");
       if job && !job.nil? && job.status
         Prnstn.log("Job status #{job.status}")
       end
@@ -90,6 +91,7 @@ module Prnstn
     def print(m)
       data = ''
       # data << "##{m.id} // #{m.sid} // #{m.date}\n"
+      data << "@#{m.screen_name} #{m.created_at}\n"
 
       # TODO: parse body for links, get image, display.
       data << "#{m.body}\n"

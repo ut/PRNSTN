@@ -69,6 +69,12 @@ module Prnstn
       end
 
       options[:assetsdir] = File.expand_path('assets')
+      options[:systemdir] = File.expand_path('system')
+      options[:systemdir] = "#{options[:systemdir]}/#{ASSET_TWITTER_PATH}";
+      require 'fileutils'
+      unless File.directory?(options[:systemdir])
+        FileUtils.mkdir_p(options[:systemdir])
+      end
 
 
     end

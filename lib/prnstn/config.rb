@@ -39,9 +39,5 @@ module Prnstn
   GNUSOCIAL_MENTIONS_ENDPOINT  = 'https://schnackr.hamburg.freifunk.net/api/statuses/mentions/'+GNUSOCIAL_ID+'.json'.freeze
 
   # SMC specific
-  ASSET_TWITTER_PATH = 'system/twitter'.freeze
-  require 'fileutils'
-  unless File.directory?(ASSET_TWITTER_PATH)
-    FileUtils.mkdir_p(ASSET_TWITTER_PATH)
-  end
+  ASSET_TWITTER_PATH = "twitter/"
 end

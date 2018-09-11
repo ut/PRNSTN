@@ -27,6 +27,8 @@ ActiveRecord::Schema.define do
       table.column :body,     :text
       table.column :imageurl, :string
       table.column :date,     :timestamp
+      table.column :created_at, :created_at
+      table.column :screen_name, :screen_name
       table.column :queued,   :boolean
       table.column :printed,   :boolean
     end

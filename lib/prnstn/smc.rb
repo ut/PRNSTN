@@ -149,7 +149,7 @@ module Prnstn
           if mention.media[0] && mention.media[0].media_url
             Prnstn.log("Image ref found: #{mention.media[0].media_url}")
             ### TODO: type throws error && mention.media[0].type == "photo"
-            imagepath = "#{ASSET_TWITTER_PATH}/#{mention.id}-1.jpg"
+            imagepath = "#{@options[:systemdir]}/#{mention.id}-1.jpg"
             File.open(imagepath, 'wb') do |fo|
               fo.write open(mention.media[0].media_url).read
             end
@@ -192,6 +192,8 @@ module Prnstn
             title: "m",
             body: body,
             imageurl: imagepath,
+            created_at: mention.created_at,
+            screen_name: mention.user.screen_name,
             date: Time.now,
             queued: false,
             printed: false

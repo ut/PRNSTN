@@ -180,6 +180,15 @@ then install the cli version of the Twitter gem
   $ sudo gem install t
 ```
 
+If you are using the ONPUSH mode and get the following message
+
+```
+  Unable to determine hardware version. I see: Hardware   : BCM2835
+ - expecting BCM2708 or BCM2709.
+```
+
+... then you are probably using an outdated version of wiringpi (e.g. as standard package). Visit [Wiringpi.com](http://wiringpi.com/download-and-install/) and re-install wiringpi
+
 
 ## Development
 

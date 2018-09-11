@@ -40,5 +40,6 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'rake', '~> 12'
   spec.add_development_dependency 'rubocop'
   spec.add_development_dependency 'sqlite3'
-  spec.add_development_dependency 'wiringpi', '~> 2.3'
+  # spec.add_development_dependency 'wiringpi', '~> 2.3'
+  spec.add_development_dependency 'wiringpi'
 end
