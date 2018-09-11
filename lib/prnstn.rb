@@ -305,12 +305,12 @@ module Prnstn
 
         if messages && messages.count > 0
           @logger.log("INSTANT PRINT... printing #{messages.count} messages".blue)
+          @printer.print_header
           @logger.log("-------------------------")
           messages.each do |m|
             @printer.print(m)
           end
           @logger.log("-------------------------")
-          @printer.print_header
 
         else
           @logger.log("INSTANT PRINT... no new messages, nothing to print".yellow)

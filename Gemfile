@@ -4,7 +4,7 @@ source 'https://rubygems.org'
 gemspec
 
 
-gem 'twitter', '~> 6.2', :git => 'https://github.com/ut/twitter.git', :require => true
+gem 'twitter', :git => 'https://github.com/ut/twitter.git', :require => true
 
 group :test do
   gem 'rspec'

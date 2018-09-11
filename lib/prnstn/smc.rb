@@ -164,7 +164,6 @@ module Prnstn
           Prnstn.log("Full text: "+mention.full_text)
           Prnstn.log("Text: "+mention.text)
 
-
           # twitter tweet_mode=extended is needed to get full 280 chars
           # see https://github.com/sferik/twitter/issues/880
           # tweaked twitter gem v6.2.0, since this feature is not covered

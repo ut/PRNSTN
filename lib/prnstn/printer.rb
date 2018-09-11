@@ -53,7 +53,7 @@ module Prnstn
       Prnstn.log("#{state}")
 
       if @options && @options[:live_run]
-        test_print
+        # test_print
       else
         Prnstn.log('TEST PRINT... printing disabled, skipping (dry run mode)'.yellow)
       end

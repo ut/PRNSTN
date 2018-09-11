@@ -124,7 +124,7 @@ DEPENDENCIES
   rspec
   rubocop
   sqlite3
-  twitter (~> 6.2)!
+  twitter!
   vcr
   webmock
   wiringpi
