@@ -91,11 +91,8 @@ module Prnstn
 
     def print(m)
       data = ''
-      # data << "##{m.id} // #{m.sid} // #{m.date}\n"
       data << "@#{m.screen_name} #{m.created_at}\n"
-
-      # TODO: parse body for links, get image, display.
-      data << "#{m.body}\n"
+      data << "#{m.body}\n\n\n\n"
       # data << "-----------------\n"
       if @options && @options[:live_run]
         Prnstn.log('PRINT... printing a job')
