@@ -111,24 +111,43 @@ module Prnstn
     end
 
     def fetch_mentions
-      Prnstn.log("SMC: Receive latest #{MESSAGE_QUEUE} mentions from Twitter...")
-      @last_tweets = @client.mentions_timeline[0..MESSAGE_QUEUE]
-      # TODO: handle timeout
-
-      # @last_tweets = [{}]
+      @last_tweets = {}
+      begin
+        retries ||= 0
+        if retries == 0
+          Prnstn.log("SMC: Receive latest #{MESSAGE_QUEUE} mentions from Twitter...")
+        else
+          Prnstn.log("SMC: Receive latest #{MESSAGE_QUEUE} mentions from Twitter ##{ retries }... ")
+        end
+        @last_tweets = @client.mentions_timeline[0..MESSAGE_QUEUE]
+        raise
+      rescue
+        retries += 1
+        sleep 4
+        retry if retries < 5
+        Prnstn.log("SMC: Got mentions_timeline timeout/error".yellow) if retries >= 5
+      end
       @last_tweets.each_with_index do |m,i|
         Prnstn.log("-- Receiving message #{i} #{m.id} #{m.created_at}".colorize(:color => :white, :background => :light_black))
       end
     end
 
     def fetch_hashtags
-      Prnstn.log("SMC: Receive latest #{MESSAGE_QUEUE} message w/hashtag #{@options[:hashtag]} from Twitter...")
-      @last_tweets = @client.search("#{@options[:hashtag]} -rt").take(MESSAGE_QUEUE)
-      puts @last_tweets.count
+      @last_tweets = {}
+      begin
+        retries ||= 0
+        if retries == 0
+          Prnstn.log("SMC: Receive latest #{MESSAGE_QUEUE} message w/hashtag #{@options[:hashtag]} from Twitter...")
+        else
+          Prnstn.log("SMC: Receive latest #{MESSAGE_QUEUE} message w/hashtag #{@options[:hashtag]} from Twitter ##{ retries }...")
+        end
+        @last_tweets = @client.search("#{@options[:hashtag]} -rt").take(MESSAGE_QUEUE)
+      rescue
+        retries += 1
+        retry if retries < 5
+        Prnstn.log("SMC: Got fetch_hashtags timeout/error".yellow) if retries >= 5
+      end
 
-      # TODO: handle timeout
-
-      # @last_tweets = [{}]
       @last_tweets.each_with_index do |m,i|
         Prnstn.log("-- Receiving message #{i} #{m.id} #{m.created_at}".colorize(:color => :white, :background => :light_black))
       end
@@ -149,6 +168,7 @@ module Prnstn
           if mention.media[0] && mention.media[0].media_url
             Prnstn.log("Image ref found: #{mention.media[0].media_url}")
             ### TODO: type throws error && mention.media[0].type == "photo"
+            ### TODO: begin/rescuee blog
             imagepath = "#{@options[:systemdir]}/#{mention.id}-1.jpg"
             File.open(imagepath, 'wb') do |fo|
               fo.write open(mention.media[0].media_url).read

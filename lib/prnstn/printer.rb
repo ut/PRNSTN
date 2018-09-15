@@ -64,6 +64,7 @@ module Prnstn
       Prnstn.log('Print test...')
       # job = @printer.print_data('hello world', 'text/plain')
       job = @printer.print_file("#{@options[:assetsdir]}/INTPRN_hello_world.png");
+      job = @printer.print_file("#{@options[:assetsdir]}/INTPRN_solidaritycity_pattern_85x170mm.png");
       if job && !job.nil? && job.status
         Prnstn.log("Job status #{job.status}")
       else
