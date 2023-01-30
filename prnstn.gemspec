@@ -33,7 +33,7 @@ Gem::Specification.new do |spec|
   spec.executables = spec.files.grep(%r{^bin/}) { |f| File.basename(f) }
   spec.require_paths = ['lib']
 
-  spec.add_development_dependency 'activerecord', '~>6'
+  spec.add_development_dependency 'activerecord', '~>7'
   spec.add_development_dependency 'bundler'
   spec.add_development_dependency 'colorize'
   spec.add_development_dependency 'cupsffi', '~> 0.1'
